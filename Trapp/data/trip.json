@@ -1,0 +1,310 @@
+{
+
+  "days": [
+    {
+      "date": "2026-04-15T14:30:00Z",
+      "city": "Roma",
+      "country": "Italia 🇮🇹",
+      "activities": [
+        {
+          "time": "19:25",
+          "title": "Salida a Roma",
+          "description": "Aeropuerto Internacional de la Ciudad de México AICM",
+          "ticket": "/tickets/vuelos.pdf",
+          "notes": "Estar al menos 3 hrs. Antes de abordaje"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-16T14:30:00Z",
+      "city": "Roma",
+      "country": "Italia 🇮🇹",
+      "activities": [
+        {
+          "time": "03:30",
+          "title": "Arribo a Roma",
+          "description": "Llegar al Hotel y tomar la tarde para conocer algo de la Roma Clásica. Piazza Novona, Fontana di Trevi.",
+          "notes": "Llegar 20 min antes"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-17T14:30:00Z",
+      "city": "Roma",
+      "country": "Italia 🇮🇹",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Roma Clásica",
+          "description": "(Panteon, Iglesia de San Ignacio, Piazza Spagna, etc)."
+        },
+        {
+          "time": "13:00",
+          "title": "Coliseo Romano",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-18T14:30:00Z",
+      "city": "Vaticano",
+      "country": "Italia 🇮🇹🇻🇦",
+      "activities": [
+        {
+          "time": "18:25",
+          "title": "Vaticano",
+          "description": "Capilla Sixtina, Basícilica de San Pedro, Plaza de San Pedro."
+          
+        },
+        {
+          "time": "13:00",
+          "title": "Salida a Florencia",
+          "description": "Entrada reservada",
+          "ticket": "/tickets/roma-florencia.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-19T14:30:00Z",
+      "city": "Florencia",
+      "country": "Italia 🇮🇹",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Duomo de Florencia",
+          "description": "Catedral + cúpula"
+        },
+        {
+          "time": "13:00T14:30:00Z",
+          "title": "Galería Uffizi",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-02-10T14:30:00Z",
+      "city": "Toscana",
+      "country": "Italia 🇮🇹",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Siena",
+          "description": "Comienza la aventura por la italiana Toscana"
+        },
+        {
+          "time": "13:00",
+          "title": "Pisa",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-21T14:30:00Z",
+      "city": "Florencia - Venecia",
+      "country": "Italia 🇮🇹",
+      "activities": [
+        {
+          "time": "07:39",
+          "title": "Tren a Venecia",
+          "description": "Tren a Venecia",
+          "ticket": "/tickets/florencia-venecia.pdf"
+        },
+        {
+          "time": "13:00",
+          "title": "Tarde para conocer Venecia",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-22T14:30:00Z",
+      "city": "Venecia - Milán",
+      "country": "Italia 🇮🇹",
+      "activities": [
+        {
+          "time": "07:57",
+          "title": "Tren a Milán",
+          "description": "Trayecto de 2:30hrs"
+        },
+        {
+          "time": "12:00",
+          "title": " Milán",
+          "description": "Conocer Milán clásico; centro, Duomo, Galleria Vittorio Emanuele, etc",
+          "ticket": "/tickets/venecia-milan.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-23T14:30:00Z",
+      "city": "Milan - Zurich",
+      "country": "Suiza 🇨🇭",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Tren de Milán a tirano",
+          "description": "Es un recorrido de aproximádamente 2:30hrs",
+          "ticket": "/tickets/milan-tirano.pdf"
+        },
+        {
+          "time": "14:24",
+          "title": "Bernina de tirano a Chur",
+          "description": "Recorrido de 4hrs aproximádamente",
+          "ticket": "/tickets/tirano-chur.pdf"
+        },
+        {
+          "time": "19:11",
+          "title": "Tren de Chur a Zurich",
+          "description": "Entrada reservada",
+          "ticket": "/tickets/chur-zurich.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-24T14:30:00Z",
+      "city": "Zurich",
+      "country": "Suiza 🇨🇭",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Zurich",
+          "description": "Centro Histórico, Bahnhofstrasse, Iglesia de Grossmünster, Lago Zurich, etc"
+          
+        }
+      ]
+    },
+    {
+      "date": "2026-04-25T14:30:00Z",
+      "city": "Zurich - Paris",
+      "country": "Francia 🇫🇷",
+      "activities": [
+        {
+          "time": "07:59",
+          "title": "Tren a París",
+          "description": "Hacemos escala en Karlsruhe - Alemania y llegamos a las 14:00hs a Paris",
+          "ticket": "/tickets/zurich-paris.pdf"
+        },
+        {
+          "time": "16:00",
+          "title": "Conocer París clásico; Torre Eiffel, arco del triunfo, campos elíseos, Montmartre",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-26T14:30:00Z",
+      "city": "Paris",
+      "country": "Francia 🇫🇷",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Paris",
+          "description": "Museo Louvre, Plaza de la concordia, Notre dame, Panteon, Barrio Latino, etc"
+        },
+        {
+          "time": "13:00",
+          "title": "Tarde por Paris",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-27T14:30:00Z",
+      "city": "Londres",
+      "country": "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "activities": [
+        {
+          "time": "07:32",
+          "title": "Tren a Londres",
+          "description": "Viajamos por el Eurostar, viaje de 1:30 hrs aproximádamente",
+          "ticket": "/tickets/paris-londres.pdf"
+        },
+        {
+          "time": "10:30",
+          "title": "Arribo al Hotel y comenzamos por conocer Big Ben, Londo eye, etc.",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-28T14:30:00Z",
+      "city": "Londres",
+      "country": "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Stonehenge y/o Costwolds",
+          "description": "Disfrutar de estos lugares que estan cerca a Londres"          
+        },
+        {
+          "time": "18:30",
+          "title": "Volver por la tarde para pasar un rato por el Sky garden o Pubs",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-29T14:30:00Z",
+      "city": "Oxford",
+      "country": "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Oxford",
+          "description": "Conocer Oxford y algunos de sus Pubs"
+        },
+        {
+          "time": "13:00",
+          "title": "Tren de tirano a Chur",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-30T14:30:00Z",
+      "city": "Londres",
+      "country": "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Tren a Paris",
+          "description": "Catedral + cúpula"
+        },
+        {
+          "time": "13:00",
+          "title": "Tren de tirano a Chur",
+          "description": "Entrada reservada"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-01T14:30:00Z",
+      "city": "Londres",
+      "country": "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "activities": [
+        {
+          "time": "08:30",
+          "title": "Paseo por Londres",
+          "description": "Conocer sitios cercanos que hayan faltado y preparse para volver a México"
+        },
+        {
+          "time": "13:00",
+          "title": "Avión a CDMX",
+          "description": "Estar con tiempo en el aeropuerto para el abordaje",
+          "ticket": "/tickets/vuelos.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-02T14:30:00Z",
+      "city": "CDMX",
+      "country": "México 🇲🇽",
+      "activities": [
+        {
+          "time": "22:30",
+          "title": "Arribo CDMX",
+          "description": "Catedral + cúpula"
+        }
+      ]
+    }
+  ]
+}

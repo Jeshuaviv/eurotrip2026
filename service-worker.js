@@ -1,12 +1,14 @@
-const STATIC_CACHE = "trip-app-static-v1";
-const TICKETS_CACHE = "trip-app-tickets-v1";
+const STATIC_CACHE = "trip-app-static-v6";
+const TICKETS_CACHE = "trip-app-tickets-v6";
 
 const STATIC_ASSETS = [
   "index.html",
   "styles.css",
   "app.js",
   "data/trip.json",
-  "data/tickets.json"
+  "data/tickets.json",
+  "pdfjs/pdf.mjs",
+  "pdfjs/pdf.worker.mjs"  
 ];
 
 self.addEventListener("install", event => {

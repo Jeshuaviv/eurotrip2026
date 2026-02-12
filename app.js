@@ -1,3 +1,7 @@
+import * as pdfjsLib from "./pdfjs/pdf.mjs";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
+
 const PASSWORD = "euro2026"; // cámbialo
 
 function checkPin() {
@@ -311,16 +315,59 @@ function resetView() {
   });
 }
 
-/* Función abrir */
-function openTicket(path) {
-  document.getElementById("ticketFrame").src = path;
-  document.getElementById("ticketViewer").classList.remove("hidden");
+/* Función abrir ticket*/
+async function openTicket(url) {
+  const overlay = document.getElementById("pdfOverlay");
+  const frame = document.getElementById("pdfFrame");
+
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    frame.src = blobUrl;
+    overlay.classList.add("active");
+
+  } catch (err) {
+    console.error("Error cargando PDF:", err);
+  }
 }
 
-function closeTicket() {
-  document.getElementById("ticketViewer").classList.add("hidden");
-  document.getElementById("ticketFrame").src = "";
+/*función cerrar ticket */
+function closePdf() {
+  const overlay = document.getElementById("pdfOverlay");
+  const frame = document.getElementById("pdfFrame");
+
+  overlay.classList.remove("active");
+
+  setTimeout(() => {
+    frame.src = "";
+  }, 300);
 }
+
+document.getElementById("closePdf").addEventListener("click", closePdf);
+
+
+
+
+
+/* close Ticket */
+function closeTicket() {
+  const viewer = document.getElementById("ticketViewer");
+  const container = document.getElementById("pdfContainer");
+
+  viewer.classList.remove("active");
+  container.innerHTML = "";
+}
+
+window.openTicket = openTicket;
+window.closeTicket = closeTicket;
+window.openLink = openLink;
+window.toggleDone = toggleDone;
+window.checkPin = checkPin;
+window.showHome = showHome;
+
+
 
 /* Marcador actividad hecha */
 function toggleDone(button) {
@@ -338,4 +385,7 @@ function toggleDone(button) {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
+
+window.openTicket = openTicket;
+
 

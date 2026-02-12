@@ -47,10 +47,13 @@
   <div class="timeline" id="timeline"></div>
 
   <!-- Visor ticket -->
-  <div id="ticketViewer" class="ticket-viewer hidden">
-  <button class="close-btn" onclick="closeTicket()">✕</button>
-  <iframe id="ticketFrame"></iframe>
+<div id="pdfOverlay" class="pdf-overlay">
+  <div class="pdf-header">
+    <button id="closePdf">➜</button>
+  </div>
+  <iframe id="pdfFrame"></iframe>
 </div>
-  <script src="app.js"></script>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>

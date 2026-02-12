@@ -2,7 +2,6 @@ const STATIC_CACHE = "trip-app-static-v1";
 const TICKETS_CACHE = "trip-app-tickets-v1";
 
 const STATIC_ASSETS = [
-  "/",
   "index.html",
   "styles.css",
   "app.js",

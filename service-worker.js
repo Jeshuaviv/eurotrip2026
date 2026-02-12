@@ -1,5 +1,5 @@
-const STATIC_CACHE = "trip-app-static-v6";
-const TICKETS_CACHE = "trip-app-tickets-v6";
+const STATIC_CACHE = "trip-app-static-v7";
+const TICKETS_CACHE = "trip-app-tickets-v7";
 
 const STATIC_ASSETS = [
   "index.html",

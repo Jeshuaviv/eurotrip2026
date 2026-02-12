@@ -20,7 +20,7 @@ self.addEventListener("install", event => {
       const ticketsCache = await caches.open(TICKETS_CACHE);
 
       // Cargar lista de tickets
-      const response = await fetch("/data/tickets.json");
+      const response = await fetch("data/tickets.json");
       const data = await response.json();
 
       // Guardar cada ticket en caché

@@ -10,7 +10,7 @@
           "time": "19:25",
           "title": "Salida a Roma",
           "description": "Aeropuerto Internacional de la Ciudad de México AICM",
-          "ticket": "/tickets/vuelos.pdf",
+          "ticket": "tickets/vuelos.pdf",
           "notes": "Estar al menos 3 hrs. Antes de abordaje"
         }
       ]
@@ -60,7 +60,7 @@
           "time": "13:00",
           "title": "Salida a Florencia",
           "description": "Entrada reservada",
-          "ticket": "/tickets/roma-florencia.pdf"
+          "ticket": "tickets/roma-florencia.pdf"
         }
       ]
     },
@@ -107,7 +107,7 @@
           "time": "07:39",
           "title": "Tren a Venecia",
           "description": "Tren a Venecia",
-          "ticket": "/tickets/florencia-venecia.pdf"
+          "ticket": "tickets/florencia-venecia.pdf"
         },
         {
           "time": "13:00",
@@ -130,7 +130,7 @@
           "time": "12:00",
           "title": " Milán",
           "description": "Conocer Milán clásico; centro, Duomo, Galleria Vittorio Emanuele, etc",
-          "ticket": "/tickets/venecia-milan.pdf"
+          "ticket": "tickets/venecia-milan.pdf"
         }
       ]
     },
@@ -143,19 +143,19 @@
           "time": "08:30",
           "title": "Tren de Milán a tirano",
           "description": "Es un recorrido de aproximádamente 2:30hrs",
-          "ticket": "/tickets/milan-tirano.pdf"
+          "ticket": "tickets/milan-tirano.pdf"
         },
         {
           "time": "14:24",
           "title": "Bernina de tirano a Chur",
           "description": "Recorrido de 4hrs aproximádamente",
-          "ticket": "/tickets/tirano-chur.pdf"
+          "ticket": "tickets/tirano-chur.pdf"
         },
         {
           "time": "19:11",
           "title": "Tren de Chur a Zurich",
           "description": "Entrada reservada",
-          "ticket": "/tickets/chur-zurich.pdf"
+          "ticket": "tickets/chur-zurich.pdf"
         }
       ]
     },
@@ -181,7 +181,7 @@
           "time": "07:59",
           "title": "Tren a París",
           "description": "Hacemos escala en Karlsruhe - Alemania y llegamos a las 14:00hs a Paris",
-          "ticket": "/tickets/zurich-paris.pdf"
+          "ticket": "tickets/zurich-paris.pdf"
         },
         {
           "time": "16:00",
@@ -216,7 +216,7 @@
           "time": "07:32",
           "title": "Tren a Londres",
           "description": "Viajamos por el Eurostar, viaje de 1:30 hrs aproximádamente",
-          "ticket": "/tickets/paris-londres.pdf"
+          "ticket": "tickets/paris-londres.pdf"
         },
         {
           "time": "10:30",
@@ -290,7 +290,7 @@
           "time": "13:00",
           "title": "Avión a CDMX",
           "description": "Estar con tiempo en el aeropuerto para el abordaje",
-          "ticket": "/tickets/vuelos.pdf"
+          "ticket": "tickets/vuelos.pdf"
         }
       ]
     },

@@ -3,10 +3,11 @@ const TICKETS_CACHE = "trip-app-tickets-v1";
 
 const STATIC_ASSETS = [
   "/",
-  "/index.html",
-  "/styles.css",
-  "/app.js",
-  "/data/trip.json"
+  "index.html",
+  "styles.css",
+  "app.js",
+  "data/trip.json",
+  "data/tickets.json"
 ];
 
 self.addEventListener("install", event => {

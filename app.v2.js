@@ -61,7 +61,8 @@ async function loadTrip() {
         <div class="time">${act.time}</div>
         <h3>${act.title}</h3>
         <p>${act.description || ""}</p>
-        ${act.ticket ? `<button class="cta" onclick="openTicket('${act.ticket}')">Ver tickets 🎟</button>` : ""}
+        ${act.ticket ? `<button class="cta ticket-btn" data-ticket="${act.ticket}">Ver tickets 🎟</button>` : ""}
+
         ${act.notes ? `<div class="notes">Tip: ${act.notes}</div>` : ""}
         <button class="cta secondary" onclick="toggleDone(this)">Marcar como hecho ✓</button>
       `;
@@ -313,6 +314,16 @@ function resetView() {
   });
 }
 
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".ticket-btn");
+  if (!btn) return;
+
+  e.preventDefault();
+  const url = btn.dataset.ticket;
+  openTicket(url);
+});
+
+
 /* Función abrir ticket*/
 async function openTicket(url) {
   const overlay = document.getElementById("pdfOverlay");
@@ -358,7 +369,6 @@ function closeTicket() {
   container.innerHTML = "";
 }
 
-window.openTicket = openTicket;
 window.closeTicket = closeTicket;
 window.openLink = openLink;
 window.toggleDone = toggleDone;

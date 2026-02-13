@@ -1,10 +1,10 @@
-const STATIC_CACHE = "trip-app-static-v7";
-const TICKETS_CACHE = "trip-app-tickets-v7";
+const STATIC_CACHE = "trip-app-static-v8";
+const TICKETS_CACHE = "trip-app-tickets-v8";
 
 const STATIC_ASSETS = [
   "index.html",
   "styles.css",
-  "app.js",
+  "app.v2.js",
   "data/trip.json",
   "data/tickets.json",
   "pdfjs/pdf.mjs",

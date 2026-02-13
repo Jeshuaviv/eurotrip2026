@@ -314,63 +314,53 @@ function resetView() {
   });
 }
 
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".ticket-btn");
+  if (!btn) return;
+
+  e.preventDefault();
+  const url = btn.dataset.ticket;
+  openTicket(url);
+});
+
+
+/* Función abrir ticket*/
 async function openTicket(url) {
   const overlay = document.getElementById("pdfOverlay");
-  const container = document.getElementById("pdfPagesContainer");
+  const frame = document.getElementById("pdfFrame");
 
   try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    frame.src = blobUrl;
     overlay.classList.add("active");
-    // Limpiar contenido previo
-    container.innerHTML = "";
-
-    const loadingTask = pdfjsLib.getDocument(url);
-    const pdf = await loadingTask.promise;
-
-    // Recorrer todas las páginas del documento
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      
-      // Crear un canvas para esta página específica
-      const canvas = document.createElement("canvas");
-      canvas.style.display = "block";
-      canvas.style.margin = "10px auto"; // Espaciado entre páginas
-      canvas.style.maxWidth = "100%";
-      canvas.style.boxShadow = "0 2px 10px rgba(0,0,0,0.3)";
-      
-      container.appendChild(canvas);
-
-      const context = canvas.getContext("2d");
-      const viewport = page.getViewport({ scale: 2.0 }); // Alta resolución para lectura
-      
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-
-      const renderContext = {
-        canvasContext: context,
-        viewport: viewport
-      };
-
-      await page.render(renderContext).promise;
-    }
 
   } catch (err) {
-    console.error("Error renderizando PDF multipágina:", err);
-    overlay.classList.remove("active");
+    console.error("Error cargando PDF:", err);
   }
 }
 
-/* close Ticket */
-function closeTicket() {
+/*función cerrar ticket */
+function closePdf() {
   const overlay = document.getElementById("pdfOverlay");
-  const container = document.getElementById("pdfPagesContainer");
+  const frame = document.getElementById("pdfFrame");
 
   overlay.classList.remove("active");
-  
-  // Limpiamos los elementos canvas para liberar memoria
+
   setTimeout(() => {
-    container.innerHTML = "";
+    frame.src = "";
   }, 300);
 }
+
+document.getElementById("closePdf").addEventListener("click", closePdf);
+
+
+
+
+
+/* close Ticket */
 // function closeTicket() {
 //   const viewer = document.getElementById("ticketViewer");
 //   const container = document.getElementById("pdfContainer");
@@ -386,8 +376,8 @@ document.getElementById("enterPin")
   .addEventListener("click", checkPin);
 
 
-window.closeTicket = closeTicket;
-window.openTicket = openTicket;
+// window.closeTicket = closeTicket;
+// window.openLink = openLink;
 window.toggleDone = toggleDone;
 window.checkPin = checkPin;
 window.showHome = showHome;

@@ -61,8 +61,6 @@ async function loadTrip() {
         <div class="time">${act.time}</div>
         <h3>${act.title}</h3>
         <p>${act.description || ""}</p>
-
-        ${act.cta ? `<button class="cta" onclick="openLink('${act.cta.url}')">${act.cta.label}</button>` : ""}
         ${act.ticket ? `<button class="cta" onclick="openTicket('${act.ticket}')">Ver tickets 🎟</button>` : ""}
         ${act.notes ? `<div class="notes">Tip: ${act.notes}</div>` : ""}
         <button class="cta secondary" onclick="toggleDone(this)">Marcar como hecho ✓</button>

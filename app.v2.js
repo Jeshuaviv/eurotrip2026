@@ -387,7 +387,7 @@ document.getElementById("enterPin")
 
 
 window.closeTicket = closeTicket;
-window.openTicket = openLink;
+window.openTicket = openTicket;
 window.toggleDone = toggleDone;
 window.checkPin = checkPin;
 window.showHome = showHome;

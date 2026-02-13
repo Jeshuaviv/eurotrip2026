@@ -243,9 +243,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadTrip().then(setupSearch);
 });
 
-function openLink(url) {
-  window.open(url, "_blank");
-}
+// function openLink(url) {
+//   window.open(url, "_blank");
+// }
 
 /* día específico */
 function goToDay(index) {
@@ -377,7 +377,7 @@ document.getElementById("enterPin")
 
 
 window.closeTicket = closeTicket;
-window.openLink = openLink;
+// window.openLink = openLink;
 window.toggleDone = toggleDone;
 window.checkPin = checkPin;
 window.showHome = showHome;

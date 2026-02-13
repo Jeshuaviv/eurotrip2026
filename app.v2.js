@@ -375,6 +375,9 @@ async function openTicket(url) {
     console.error("ERROR CRÍTICO en renderizado:", err);
     container.innerHTML = `<p style='color:red;'>Error: ${err.message}</p>`;
   }
+
+  document.body.style.overflow = "hidden"; // Bloquea el fondo
+    overlay.classList.add("active");
 }
 
 // 3. Exponer a window por si acaso (opcional si usas la delegación de arriba)
@@ -389,6 +392,8 @@ function closeTicket() {
     overlay.classList.remove("active");
     overlay.style.display = "none"; // Refuerzo para ocultar
     container.innerHTML = ""; // Limpia memoria
+    document.body.style.overflow = "auto"; // Libera el fondo
+    overlay.classList.remove("active");
 }
 
 // Vinculación del evento al cargar el script

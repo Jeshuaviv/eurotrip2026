@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <button id="backHome" class="backHome"">➜</button>
+  <button id="backHome" class="backHome">➜</button>
   <!-- Pantalla PIN  -->
   <div id="lockscreen" class="lockscreen">
     <div class="lock-box">
@@ -25,6 +25,7 @@
   <section class="home" id="homeScreen">
     <img class="logo" src="img/icon-192.png" alt="eurotrip2026">
   <h1>EuroTrip 2026 ✈️</h1>
+  <h2 class="subtitle">Mi itinerario</h2>
 
   <div class="inputSearch">
     <input type="text" id="searchInput" placeholder="Buscar actividad o lugar..." />
@@ -41,18 +42,12 @@
 
   <h3>Ciudades</h3>
   <div class="city-filters" id="cityFilters"></div>
-</section>
+  </section>
 
   <!-- Timeline -->
   <div class="timeline" id="timeline"></div>
 
   <!-- Visor ticket -->
-<!-- <div id="pdfOverlay" class="pdf-overlay">
-  <div class="pdf-header">
-    <button id="closePdf">➜</button>
-  </div>
-  <iframe id="pdfFrame"></iframe>
-</div> -->
 <div id="pdfOverlay">
     <div class="pdf-controls" style="padding: 10px; text-align: right;">
         <button id="closeTicket" class="cta">Cerrar ✕</button>

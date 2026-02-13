@@ -1,3 +1,5 @@
+let currentScreen = "home";
+
 import * as pdfjsLib from "./pdfjs/pdf.mjs";
 pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
 
@@ -241,6 +243,7 @@ function setupSearch() {
 
 document.addEventListener("DOMContentLoaded", async () => {
   await loadTrip().then(setupSearch);
+  history.replaceState({ screen: "home" }, "", "#home");
 });
 
 // function openLink(url) {
@@ -285,18 +288,54 @@ function resetFilters() {
 }
 
 
-function showTimeline() {
+function showTimeline(push = true) {
   document.getElementById("homeScreen").style.display = "none";
+  document.getElementById("backHome").style.display = "block";
+
+  currentScreen = "timeline";
+
+  if (push) {
+    history.pushState({ screen: "timeline" }, "", "#timeline");
+  }
 }
+
 
 function backHome() {
   document.getElementById("backHome").style.display = "block";
 }
 
-function showHome() {
+function showHome(push = true) {
   document.getElementById("homeScreen").style.display = "block";
   document.getElementById("backHome").style.display = "none";
+
+    currentScreen = "home";
+
+  if (push) {
+    history.pushState({ screen: "home" }, "", "#home");
+  }
 }
+
+/* Escucha gesto back (swipe)*/
+window.addEventListener("popstate", (event) => {
+
+  const next = event.state?.screen || "home";
+
+  // Si estamos viendo PDF y el siguiente estado NO es PDF → cerrar
+  if (currentScreen === "pdf" && next !== "pdf") {
+    closeTicket();
+  }
+
+  if (next === "timeline") {
+    showTimeline(false);
+  } else {
+    showHome(false);
+  }
+
+  currentScreen = next;
+});
+
+
+
 
 
 /* Función para RESET visual */
@@ -338,7 +377,6 @@ async function openTicket(url) {
 
   try {
     // Forzar visibilidad para descartar error de CSS
-    overlay.style.display = "block";
     overlay.classList.add("active");
     container.innerHTML = "<p style='color:white; padding:20px;'>Cargando PDF...</p>";
 
@@ -378,6 +416,8 @@ async function openTicket(url) {
 
   document.body.style.overflow = "hidden"; // Bloquea el fondo
     overlay.classList.add("active");
+    currentScreen = "pdf";
+    history.pushState({ screen: "pdf" }, "", "#pdf");
 }
 
 // 3. Exponer a window por si acaso (opcional si usas la delegación de arriba)
@@ -386,21 +426,22 @@ window.openTicket = openTicket;
 /* close Ticket */
 // Función para cerrar
 function closeTicket() {
-    const overlay = document.getElementById("pdfOverlay");
-    const container = document.getElementById("pdfPagesContainer");
-    
-    overlay.classList.remove("active");
-    overlay.style.display = "none"; // Refuerzo para ocultar
-    container.innerHTML = ""; // Limpia memoria
-    document.body.style.overflow = "auto"; // Libera el fondo
-    overlay.classList.remove("active");
+  const overlay = document.getElementById("pdfOverlay");
+  const container = document.getElementById("pdfPagesContainer");
+
+  overlay.classList.remove("active");
+  container.innerHTML = "";
+  document.body.style.overflow = "auto";
 }
+
 
 // Vinculación del evento al cargar el script
 document.addEventListener("DOMContentLoaded", () => {
     const btnCerrar = document.getElementById("closeTicket");
     if (btnCerrar) {
-        btnCerrar.addEventListener("click", closeTicket);
+      btnCerrar.addEventListener("click", () => {
+        history.back();
+      });
     }
 });
 

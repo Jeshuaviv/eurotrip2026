@@ -361,13 +361,13 @@ document.getElementById("closePdf").addEventListener("click", closePdf);
 
 
 /* close Ticket */
-function closeTicket() {
-  const viewer = document.getElementById("ticketViewer");
-  const container = document.getElementById("pdfContainer");
+// function closeTicket() {
+//   const viewer = document.getElementById("ticketViewer");
+//   const container = document.getElementById("pdfContainer");
 
-  viewer.classList.remove("active");
-  container.innerHTML = "";
-}
+//   viewer.classList.remove("active");
+//   container.innerHTML = "";
+// }
 
 document.getElementById("backHome")
   .addEventListener("click", showHome);
@@ -376,7 +376,7 @@ document.getElementById("enterPin")
   .addEventListener("click", checkPin);
 
 
-window.closeTicket = closeTicket;
+// window.closeTicket = closeTicket;
 // window.openLink = openLink;
 window.toggleDone = toggleDone;
 window.checkPin = checkPin;

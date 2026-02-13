@@ -1,6 +1,6 @@
 import * as pdfjsLib from "./pdfjs/pdf.mjs";
-
 pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
+
 
 const PASSWORD = "euro2026"; // cámbialo
 
@@ -314,53 +314,93 @@ function resetView() {
   });
 }
 
+// 1. Delegación de eventos (Captura el clic incluso en botones nuevos)
 document.addEventListener("click", (e) => {
   const btn = e.target.closest(".ticket-btn");
   if (!btn) return;
 
   e.preventDefault();
   const url = btn.dataset.ticket;
+  console.log("Abriendo ticket desde:", url); // Para depurar
   openTicket(url);
 });
 
-
-/* Función abrir ticket*/
+// 2. Tu función openTicket (Asegúrate de que use el Canvas como vimos)
 async function openTicket(url) {
+  console.log("1. Iniciando openTicket para:", url);
   const overlay = document.getElementById("pdfOverlay");
-  const frame = document.getElementById("pdfFrame");
+  const container = document.getElementById("pdfPagesContainer");
+
+  if (!overlay || !container) {
+    console.error("ERROR: No encontré el overlay o el container en el HTML");
+    return;
+  }
 
   try {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const blobUrl = URL.createObjectURL(blob);
-
-    frame.src = blobUrl;
+    // Forzar visibilidad para descartar error de CSS
+    overlay.style.display = "block";
     overlay.classList.add("active");
+    container.innerHTML = "<p style='color:white; padding:20px;'>Cargando PDF...</p>";
 
+    console.log("2. Cargando documento...");
+    const loadingTask = pdfjsLib.getDocument(url);
+    
+    // Si se queda aquí, es un problema de la ruta del archivo o CORS
+    const pdf = await loadingTask.promise;
+    console.log("3. PDF cargado correctamente. Páginas:", pdf.numPages);
+    
+    container.innerHTML = ""; 
+
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      console.log(`4. Renderizando página ${pageNum}...`);
+      const page = await pdf.getPage(pageNum);
+      const canvas = document.createElement("canvas");
+      canvas.style.display = "block";
+      canvas.style.margin = "10px auto";
+      canvas.style.maxWidth = "100%";
+      canvas.style.background = "white"; // Para ver el área aunque falle el dibujo
+      
+      container.appendChild(canvas);
+
+      const context = canvas.getContext("2d");
+      const viewport = page.getViewport({ scale: 1.5 });
+      
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      await page.render({ canvasContext: context, viewport: viewport }).promise;
+      console.log(`5. Página ${pageNum} renderizada.`);
+    }
   } catch (err) {
-    console.error("Error cargando PDF:", err);
+    console.error("ERROR CRÍTICO en renderizado:", err);
+    container.innerHTML = `<p style='color:red;'>Error: ${err.message}</p>`;
   }
 }
 
-/*función cerrar ticket */
-function closePdf() {
-  const overlay = document.getElementById("pdfOverlay");
-  const frame = document.getElementById("pdfFrame");
-
-  overlay.classList.remove("active");
-
-  setTimeout(() => {
-    frame.src = "";
-  }, 300);
-}
-
-document.getElementById("closePdf").addEventListener("click", closePdf);
-
-
-
-
+// 3. Exponer a window por si acaso (opcional si usas la delegación de arriba)
+window.openTicket = openTicket;
 
 /* close Ticket */
+// Función para cerrar
+function closeTicket() {
+    const overlay = document.getElementById("pdfOverlay");
+    const container = document.getElementById("pdfPagesContainer");
+    
+    overlay.classList.remove("active");
+    overlay.style.display = "none"; // Refuerzo para ocultar
+    container.innerHTML = ""; // Limpia memoria
+}
+
+// Vinculación del evento al cargar el script
+document.addEventListener("DOMContentLoaded", () => {
+    const btnCerrar = document.getElementById("closeTicket");
+    if (btnCerrar) {
+        btnCerrar.addEventListener("click", closeTicket);
+    }
+});
+
+// Por si acaso algún botón usa onclick="closePdf()" en el HTML
+window.closeTicket = closeTicket;
 // function closeTicket() {
 //   const viewer = document.getElementById("ticketViewer");
 //   const container = document.getElementById("pdfContainer");
@@ -376,8 +416,7 @@ document.getElementById("enterPin")
   .addEventListener("click", checkPin);
 
 
-// window.closeTicket = closeTicket;
-// window.openLink = openLink;
+window.openTicket = openTicket;
 window.toggleDone = toggleDone;
 window.checkPin = checkPin;
 window.showHome = showHome;

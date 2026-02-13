@@ -47,13 +47,18 @@
   <div class="timeline" id="timeline"></div>
 
   <!-- Visor ticket -->
-<div id="pdfOverlay" class="pdf-overlay">
+<!-- <div id="pdfOverlay" class="pdf-overlay">
   <div class="pdf-header">
     <button id="closePdf">➜</button>
   </div>
   <iframe id="pdfFrame"></iframe>
+</div> -->
+<div id="pdfOverlay">
+    <div class="pdf-controls" style="padding: 10px; text-align: right;">
+        <button id="closeTicket" class="cta">Cerrar ✕</button>
+    </div>
+    <div id="pdfPagesContainer"></div>
 </div>
-
   <script type="module" src="app.v2.js"></script>
 </body>
 </html>

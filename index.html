@@ -10,17 +10,17 @@
 </head>
 <body>
 
-  <button id="backHome" class="backHome" onclick="showHome()">➜</button>
+  <button id="backHome" class="backHome"">➜</button>
   <!-- Pantalla PIN  -->
   <div id="lockscreen" class="lockscreen">
-  <div class="lock-box">
-    <h1>EuroTrip 🔒</h1>
-    <p>Ingresa el código del viaje</p>
-    <input type="password" id="pinInput" placeholder="Código" />
-    <button onclick="checkPin()">Entrar</button>
-    <p id="errorMsg"></p>
+    <div class="lock-box">
+      <h1>EuroTrip 🔒</h1>
+      <p>Ingresa el código del viaje</p>
+      <input type="password" id="pinInput" placeholder="Código" />
+      <button id="enterPin">Entrar</button>
+      <p id="errorMsg"></p>
+    </div>
   </div>
-</div>
 
   <section class="home" id="homeScreen">
     <img class="logo" src="img/icon-192.png" alt="eurotrip2026">
@@ -54,6 +54,6 @@
   <iframe id="pdfFrame"></iframe>
 </div>
 
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.v2.js"></script>
 </body>
 </html>

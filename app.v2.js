@@ -124,7 +124,7 @@ function buildHomeNavigation(days) {
     `;
 
 
-    chip.onclick = () => goToDay(index);
+    chip.addEventListener("click", () => goToDay(index));
 
     // ⭐ Si este día es HOY
     if (index === todayIndex) {
@@ -368,6 +368,13 @@ function closeTicket() {
   viewer.classList.remove("active");
   container.innerHTML = "";
 }
+
+document.getElementById("backHome")
+  .addEventListener("click", showHome);
+
+document.getElementById("enterPin")
+  .addEventListener("click", checkPin);
+
 
 window.closeTicket = closeTicket;
 window.openLink = openLink;

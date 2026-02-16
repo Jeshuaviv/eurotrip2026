@@ -10,6 +10,11 @@ body {
   overflow: hidden;
 }
 
+html, body {
+  background-color: #111111;
+  overscroll-behavior: none;
+}
+
 /* Home */
 .home {
   min-height: 100vh;
@@ -28,8 +33,16 @@ body {
 }
 
 .home h1 {
-  margin-bottom: 24px;
+  margin-bottom: 0;
   text-align: center;
+}
+
+h2.subtitle {
+  color: #ffc596;
+  margin: 0;
+  text-align: center;
+  font-weight: normal;
+  font-size: 18px;
 }
 
 .inputSearch {
@@ -231,6 +244,31 @@ h3 {
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
+.card.done {
+  opacity: 0.6;
+  transform: scale(0.98);
+  animation: fadeOutCard 0.4s ease both;
+}
+
+@keyframes fadeOutCard {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.4;
+  }
+}
+
+.card.done h3 {
+  text-decoration: line-through;
+}
+
+
+
+.hidden {
+  display: none;
+}
+
 .time {
   font-size: 14px;
   color: #78a7c8;
@@ -308,58 +346,6 @@ button.cta {
   height: 18px;
 }
 
-.card.done {
-  opacity: 0.6;
-  transform: scale(0.98);
-}
-
-.card.done h3 {
-  text-decoration: line-through;
-}
-
-.pdf-overlay {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-}
-
-.pdf-overlay.active {
-  transform: translateY(0);
-}
-
-.pdf-header {
-  height: 56px;
-  background: #111;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-}
-
-.pdf-header button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 16px;
-}
-
-#pdfFrame {
-  flex: 1;
-  width: 100%;
-  border: none;
-  background: white;
-}
-
-
-
-.hidden {
-  display: none;
-}
-
 button.secondary {
   background: #2f648a;
   color: white;
@@ -382,29 +368,51 @@ button.secondary {
 }
 
 #closeTicket {
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
-  color: white;
-  font-size: 16px;
+  color: #111;
+  font-size: 14px;
   /* transform: rotate(180deg); */
   -webkit-font-smoothing: antialiased;
 }
 
 #pdfOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 10000;
-    display: none; 
-    flex-direction: column; /* Alinea controles arriba y contenido abajo */
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity .25s ease, visibility .25s ease;
+    will-change: opacity;
+  transform: translateZ(0);
 }
 
+
 #pdfOverlay.active {
-    display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
 }
+
+
+.screen {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
 
 #pdfPagesContainer {
     flex: 1; /* Ocupa todo el espacio restante debajo del botón cerrar */

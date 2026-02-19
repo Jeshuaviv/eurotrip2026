@@ -71,8 +71,8 @@ h2.subtitle {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding: 8px 12px;
   scroll-behavior: smooth;
+  padding-bottom: 8px;
 }
 
 
@@ -80,11 +80,12 @@ h2.subtitle {
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .day-chip {
   background-color: #1c1c1e;
+  border: 1px solid #2c2c30;
   min-width: 64px;
   padding: 8px 6px;
   border-radius: 16px;
@@ -144,7 +145,7 @@ h2.subtitle {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .city-chip {
@@ -160,6 +161,13 @@ h2.subtitle {
   transform: scale(1.05);
 }
 
+hr {
+    width: 100%;
+    margin: 8px auto 24px;
+    display: block;
+    border-color: #656565;
+}
+
 /* Actividad chips */
 #activityChips {
   display: none;
@@ -170,14 +178,14 @@ h2.subtitle {
 #visor {
   display: block;
   padding: 8px;
-  background-color: #51aa54;
+  background-color: #E91E63;
   border-radius: 25px;
   margin-bottom: 24px;
   width: max-content;
 }
 
 span#visor.close {
-    background: #248328;
+    background: #a61445;
 }
 
 #visor::after {
@@ -193,11 +201,10 @@ span#visor.close {
 
 .activity-chip {
   padding: 8px 14px;
+  border: 1px solid #ffffff8a;
   border-radius: 18px;
   font-size: 14px;
-  font-weight: 500;
-
-  background: linear-gradient(135deg, #D9A441, #B8822E);
+  font-weight: 300;
   color: white;
   opacity: 1;
   transition: all 0.3s ease;
@@ -241,7 +248,7 @@ span#visor.close {
 /* CADA DÍA */
 .day {
   min-width: 100vw;
-  padding: 20px 16px 80px;
+  padding: 10px 16px 80px;
   scroll-snap-align: start;
   overflow-y: auto;
 }
@@ -260,7 +267,7 @@ span#visor.close {
 
 h3 {
   font-size: 16px;
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   font-weight: 500;
 }
 
@@ -446,7 +453,6 @@ button.secondary {
   border-radius: 8px;
   color: white;
   font-size: 28px;
-  margin-bottom: 24px;
   transform: rotate(180deg);
   -webkit-font-smoothing: antialiased;
 }

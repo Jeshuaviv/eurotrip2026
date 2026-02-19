@@ -4,7 +4,7 @@ import * as pdfjsLib from "./pdfjs/pdf.mjs";
 pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
 
 
-const PASSWORD = "euro2026"; // cámbialo
+const PASSWORD = "pemevi26"; // cámbialo
 
 function checkPin() {
   const input = document.getElementById("pinInput").value;
@@ -35,6 +35,57 @@ function formatDate(dateStr) {
   });
 }
 
+// función crear Chips de actividades
+function buildActivityChips(days) {
+
+  const container = document.getElementById("activityChips");
+
+  container.innerHTML = "";
+
+  const now = new Date();
+
+  const activities = [];
+
+  days.forEach(day => {
+
+    const dayDate = new Date(day.date);
+
+    (day.activities || []).forEach(act => {
+
+      const uniqueId = day.date + "_" + act.title;
+
+      activities.push({
+        id: uniqueId,
+        title: act.title,
+        date: dayDate
+      });
+
+    });
+
+  });
+
+  // ordenar cronológicamente
+  activities.sort((a, b) => a.date - b.date);
+
+  activities.forEach(act => {
+
+    const chip = document.createElement("div");
+
+    chip.className = "activity-chip";
+
+    chip.textContent = act.title;
+    chip.dataset.id = act.id;
+
+    // marcar como realizada si ya pasó
+    if (act.date < now) {
+      chip.classList.add("done");
+    }
+
+    container.appendChild(chip);
+  });
+  refreshActivityChips(); // 👈 importante llamarlo aquí
+}
+
 async function loadTrip() {
   const res = await fetch("data/trip.json");
   const data = await res.json();
@@ -58,6 +109,14 @@ async function loadTrip() {
     (day.activities || []).forEach(act => {
       const card = document.createElement("article");
       card.className = "card";
+      const uniqueId = day.date + "_" + act.title;
+      card.dataset.id = uniqueId;
+
+      const doneActivities = JSON.parse(localStorage.getItem("doneActivities") || "{}");
+      if (doneActivities[uniqueId]) {
+        card.classList.add("done");
+        card.querySelector(".secondary").textContent = "Hecho ✓";
+      }
 
       card.innerHTML = `
         <div class="time">${act.time}</div>
@@ -66,7 +125,7 @@ async function loadTrip() {
         ${act.ticket ? `<button class="cta ticket-btn" data-ticket="${act.ticket}">Ver tickets 🎟</button>` : ""}
 
         ${act.notes ? `<div class="notes">Tip: ${act.notes}</div>` : ""}
-        <button class="cta secondary" onclick="toggleDone(this)">Marcar como hecho ✓</button>
+        <button class="cta secondary" onclick="toggleDone(this)">Marcar como hecho</button>
       `;
 
       activitiesContainer.appendChild(card);
@@ -76,9 +135,29 @@ async function loadTrip() {
   });
 
   buildHomeNavigation(data.days);
-
+  buildActivityChips(data.days);
   return true; // 👈 IMPORTANTE
 }
+
+/*función refresh Activities */
+function refreshActivityChips() {
+
+  const doneActivities = JSON.parse(localStorage.getItem("doneActivities") || "{}");
+
+  document.querySelectorAll(".activity-chip").forEach(chip => {
+
+      const id = chip.dataset.id;
+
+    if (doneActivities[id]) {
+      chip.classList.add("done");
+    } else {
+      chip.classList.remove("done");
+    }
+
+  });
+}
+
+refreshActivityChips();
 
 function getCurrentTripDayIndex(days) {
   const today = new Date();
@@ -335,9 +414,6 @@ window.addEventListener("popstate", (event) => {
 });
 
 
-
-
-
 /* Función para RESET visual */
 function resetView() {
   // Mostrar todos los días
@@ -471,14 +547,26 @@ window.showHome = showHome;
 
 /* Marcador actividad hecha */
 function toggleDone(button) {
+
   const card = button.closest(".card");
+  const id = card.dataset.id;
+
+  const doneActivities = JSON.parse(localStorage.getItem("doneActivities") || "{}");
+
+  // Toggle visual inmediato
   card.classList.toggle("done");
 
   if (card.classList.contains("done")) {
-    button.textContent = "Hecho ✔";
+    doneActivities[id] = true;
+    button.textContent = "Hecho ✓";
   } else {
-    button.textContent = "Marcar como hecho ✓";
+    delete doneActivities[id];
+    button.textContent = "Marcar como hecho";
   }
+
+  localStorage.setItem("doneActivities", JSON.stringify(doneActivities));
+
+  refreshActivityChips();
 }
 
 /* PWA */

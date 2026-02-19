@@ -162,10 +162,34 @@ h2.subtitle {
 
 /* Actividad chips */
 #activityChips {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   gap: 10px;
 }
+
+#visor {
+  display: block;
+  padding: 8px;
+  background-color: #51aa54;
+  border-radius: 25px;
+  margin-bottom: 24px;
+  width: max-content;
+}
+
+span#visor.close {
+    background: #248328;
+}
+
+#visor::after {
+  content: "⌞ ⌝";
+  display: inline-block;
+  padding-left: 8px;
+} 
+#visor.close::after {
+  content: "⌝ ⌞";
+  display: inline-block;
+  padding-left: 8px;
+} 
 
 .activity-chip {
   padding: 8px 14px;
@@ -200,10 +224,14 @@ h2.subtitle {
   background: #4CAF50;
 }
 
+#activador {
+  display: block;
+}
+
 /* CONTENEDOR HORIZONTAL */
 
 #timeline {
-  display: flex;
+  display: none;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   height: 100vh;
@@ -315,6 +343,10 @@ p.descripcion {
 
 .hidden {
   display: none;
+}
+
+#activityChips.flex {
+  display: flex;
 }
 
 .time {

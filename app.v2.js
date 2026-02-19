@@ -325,10 +325,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   history.replaceState({ screen: "home" }, "", "#home");
 });
 
-// function openLink(url) {
-//   window.open(url, "_blank");
-// }
-
 /* día específico */
 function goToDay(index) {
   showTimeline();
@@ -370,6 +366,7 @@ function resetFilters() {
 function showTimeline(push = true) {
   document.getElementById("homeScreen").style.display = "none";
   document.getElementById("backHome").style.display = "block";
+  document.getElementById("timeline").style.display = "flex";
 
   currentScreen = "timeline";
 
@@ -386,6 +383,7 @@ function backHome() {
 function showHome(push = true) {
   document.getElementById("homeScreen").style.display = "block";
   document.getElementById("backHome").style.display = "none";
+  document.getElementById("timeline").style.display = "none";
 
     currentScreen = "home";
 
@@ -568,6 +566,27 @@ function toggleDone(button) {
 
   refreshActivityChips();
 }
+
+/* toggle actividades */
+// 1. Seleccionamos ambos elementos
+const visor = document.querySelector('#visor');
+const contenido = document.querySelector('#activityChips');
+
+// 2. Escuchamos el click en el botón
+visor.addEventListener('click', () => {
+  const displayActual = window.getComputedStyle(contenido).display;
+
+  if (displayActual === 'none') {
+  //   alert("Hola")
+  //   contenido.style.display = 'flex'; // Aquí lo fuerzas a ser flex
+      contenido.classList.add('flex');
+      visor.classList.add('close');
+  } else {
+     contenido.classList.remove('flex');
+     visor.classList.remove('close');
+   }
+});
+
 
 /* PWA */
 if ("serviceWorker" in navigator) {

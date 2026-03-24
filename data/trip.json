@@ -34,14 +34,22 @@
       "country": "Italia 🇮🇹",
       "activities": [
         {
-          "time": "08:30",
+          "time": "09:15",
           "title": "Roma Clásica",
-          "description": "(Panteon, Iglesia de San Ignacio, Piazza Spagna, etc)."
+          "description": "Tour por el Coliseo con acceso a la Arena + Visita al Foro y Palatino - Tour en español.",
+          "ticket": "tickets/coliseo-arena.pdf"
         },
         {
-          "time": "13:00",
-          "title": "Coliseo Romano",
-          "description": "Entrada reservada"
+          "time": "14:00",
+          "title": "Panteon Romano",
+          "description": "Llevar 10 minutos antes",
+          "ticket": "tickets/panteon-agripa.pdf"
+        },
+        {
+          "time": "17:00",
+          "title": "Castillo de Sant’Angelo",
+          "description": "Castillo de Sant’Angelo con audioguía. (ESTE VOUCHER (BONO DE RESERVA) NO ES UNA ENTRADA VÁLIDA. El día anterior a vuestra visita recibiréis un email con las entradas electrónicas)",
+          "ticket": "tickets/panteon-agripa.pdf"
         }
       ]
     },
@@ -70,9 +78,10 @@
       "country": "Italia 🇮🇹",
       "activities": [
         {
-          "time": "08:30",
-          "title": "Duomo de Florencia",
-          "description": "Catedral + cúpula"
+          "time": "09:00",
+          "title": "Galería de la Academia",
+          "description": "Galería de la Academia sin colas + Audioguía",
+          "ticket": "tickets/galeria-academia.pdf"
         },
         {
           "time": "13:00T14:30:00Z",
@@ -87,14 +96,10 @@
       "country": "Italia 🇮🇹",
       "activities": [
         {
-          "time": "08:30",
-          "title": "Siena",
-          "description": "Comienza la aventura por la Toscana italiana"
-        },
-        {
-          "time": "13:00",
-          "title": "Pisa",
-          "description": "Entrada reservada"
+          "time": "07:30",
+          "title": "Excursión a Pisa, San Gimignano y Siena",
+          "description": "El día de la actividad, nos encontraremos en el kiosco del Piazzale Montelungo, ubicado en la parte de atrás de la estación de tren de Santa Maria Novella, en Florencia.",
+          "ticket": "tickets/pisa-gimignano-siena.pdf"
         }
       ]
     },
@@ -124,13 +129,15 @@
         {
           "time": "07:57",
           "title": "Tren a Milán",
-          "description": "Trayecto de 2:30hrs"
+          "description": "Trayecto de 2:30hrs",
+          "ticket": "tickets/venecia-milan.pdf"
         },
         {
-          "time": "12:00",
-          "title": " Milán",
-          "description": "Conocer Milán clásico; centro, Duomo, Galleria Vittorio Emanuele, etc",
-          "ticket": "tickets/venecia-milan.pdf"
+          "time": "16:00",
+          "title": " Duomo de Milano",
+          "description": "Acceso a Domo y azoteas",
+          "ticket": "tickets/duomo-de-milano.pdf"
+          
         }
       ]
     },
@@ -169,6 +176,12 @@
           "title": "Zurich",
           "description": "Centro Histórico, Bahnhofstrasse, Iglesia de Grossmünster, Lago Zurich, etc"
           
+        },
+        {
+          "time": "16:00",
+          "title": "Museo Lint",
+          "description": "Lindt Home of Chocolate: Seestrasse 204, 8802 Kilchberg. Puedes unirte al tour los 30 minutos siguientes a la hora elegida.",
+          "ticket": "tickets/museo-lindt.pdf"
         }
       ]
     },
@@ -184,9 +197,21 @@
           "ticket": "tickets/zurich-paris.pdf"
         },
         {
-          "time": "16:00",
-          "title": "Conocer París clásico; Torre Eiffel, arco del triunfo, campos elíseos, Montmartre",
+          "time": "15:00",
+          "title": "Arribo al hotel",
           "description": "Entrada reservada"
+        },
+        {
+          "time": "17:00",
+          "title": "Arco del triunfo",
+          "description": "Entrada reservada",
+          "ticket": "tickets/arco-del-triunfo.pdf"
+        },
+        {
+          "time": "21:00",
+          "title": "Cena en Torre Ifel",
+          "description": "Cena en Madame Brasserie, el restaurante de la Torre Eiffel",
+          "ticket": "tickets/cena-torre-ifel.pdf"
         }
       ]
     },
@@ -196,9 +221,10 @@
       "country": "Francia 🇫🇷",
       "activities": [
         {
-          "time": "08:30",
-          "title": "Paris",
-          "description": "Museo Louvre, Plaza de la concordia, Notre dame, Panteon, Barrio Latino, etc"
+          "time": "9:00",
+          "title": "Museo Lovre",
+          "description": "Visita al museo a las 9:00am",
+          "ticket": "tickets/museo-lovre.pdf"
         },
         {
           "time": "13:00",
@@ -220,8 +246,13 @@
         },
         {
           "time": "10:30",
-          "title": "Arribo al Hotel y comenzamos por conocer Big Ben, Londo eye, etc.",
-          "description": "Entrada reservada"
+          "title": "Museo Británico",
+          "description": "Arribo al Hotel y comenzamos actividades en Londres"
+        },
+        {
+          "time": "17:00",
+          "title": "London Eye",
+          "description": "Actividad con duración de media hora."
         }
       ]
     },
@@ -231,31 +262,33 @@
       "country": "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "activities": [
         {
-          "time": "08:30",
-          "title": "Stonehenge y/o Costwolds",
-          "description": "Disfrutar de estos lugares que estan cerca a Londres"          
+          "time": "09:30",
+          "title": "Avadia Wensminster",
+          "description": "Es una joya gótica imprescindible en Londreses una joya gótica imprescindible en Londres. Silla de la coronación, el rincón de los Poetas, etc.",          
+          "ticket": "tickets/cena-torre-ifel.pdf"
         },
         {
           "time": "18:30",
-          "title": "Volver por la tarde para pasar un rato por el Sky garden o Pubs",
-          "description": "Entrada reservada"
+          "title": "Sky garden o Pubs",
+          "description": "Volver por la tarde para pasar un rato por el Sky garden o Pubs"
         }
       ]
     },
     {
       "date": "2026-04-29T14:30:00Z",
-      "city": "Oxford",
+      "city": "Costwolds",
       "country": "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "activities": [
-        {
-          "time": "08:30",
-          "title": "Oxford",
-          "description": "Conocer Oxford y algunos de sus Pubs"
+                {
+          "time": "07:30",
+          "title": "Costwolds",
+          "description": "7 paradas imprescindibles en los Cotswolds en un tour para grupos pequeños, duración 10 hrs.",
+          "ticket": "tickets/costwolds.pdf"          
         },
         {
-          "time": "13:00",
-          "title": "Tren de tirano a Chur",
-          "description": "Entrada reservada"
+          "time": "20:30",
+          "title": "The Dublin Castle",
+          "description": "My Best Unbeaten Brother+Lorenza Wildcard+ TC Tenet. Bandas británicas locales, tickets en https://wegottickets.com/f/16874"
         }
       ]
     },
@@ -266,13 +299,8 @@
       "activities": [
         {
           "time": "08:30",
-          "title": "Tren a Paris",
-          "description": "Catedral + cúpula"
-        },
-        {
-          "time": "13:00",
-          "title": "Tren de tirano a Chur",
-          "description": "Entrada reservada"
+          "title": "Stonehenge",
+          "description": "Posible ida a Stoneheange o conocer más de Londres"
         }
       ]
     },
@@ -282,12 +310,13 @@
       "country": "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "activities": [
         {
-          "time": "08:30",
-          "title": "Paseo por Londres",
-          "description": "Conocer sitios cercanos que hayan faltado y preparse para volver a México"
+          "time": "14:00",
+          "title": "Museo Británico",
+          "description": "Conocer sitios cercanos que hayan faltado y preparse para volver a México",
+          "ticket":"tickets/museo-britanico.pdf"
         },
         {
-          "time": "13:00",
+          "time": "19:30",
           "title": "Avión a CDMX",
           "description": "Estar con tiempo en el aeropuerto para el abordaje",
           "ticket": "tickets/vuelos.pdf"
@@ -300,9 +329,9 @@
       "country": "México 🇲🇽",
       "activities": [
         {
-          "time": "22:30",
+          "time": "3:15",
           "title": "Arribo CDMX",
-          "description": "Catedral + cúpula"
+          "description": "Llegada en la madrugada, cuidar todas las cosas a nuestro regreso."
         }
       ]
     }

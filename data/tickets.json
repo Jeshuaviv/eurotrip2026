@@ -1,12 +1,23 @@
-{
-  "tickets": [
-    "tickets/roma-florencia.pdf",
-    "tickets/florencia-venecia.pdf",
-    "tickets/venecia-milan.pdf",
-    "tickets/milan-tirano.pdf",
-    "tickets/tirano-chur.pdf",
-    "tickets/chur-zurich.pdf",
-    "tickets/zurich-paris.pdf",
-    "tickets/paris-londres.pdf"
-  ]
-}
+[
+  {
+    "id": "vuelos",
+    "title": "Vuelo CDMX → Londres",
+    "category": "transport",
+    "file": "tickets/vuelos.pdf",
+    "date": "2026-04-12"
+  },
+  {
+    "id": "hotel_london",
+    "title": "Hotel en Londres",
+    "category": "hotel",
+    "file": "tickets/hotel_londres.pdf",
+    "date": "2026-04-12"
+  },
+  {
+    "id": "louvre",
+    "title": "Louvre Museum",
+    "category": "activity",
+    "file": "tickets/louvre.pdf",
+    "date": "2026-04-15"
+  }
+]

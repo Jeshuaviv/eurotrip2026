@@ -247,7 +247,8 @@
         {
           "time": "17:00",
           "title": "London Eye",
-          "description": "Actividad con duración de media hora."
+          "description": "Actividad con duración de media hora.",
+          "ticket": "tickets/london-eye.pdf"  
         }
       ]
     },
@@ -260,7 +261,7 @@
           "time": "09:30",
           "title": "Avadia Wensminster",
           "description": "Es una joya gótica imprescindible en Londreses una joya gótica imprescindible en Londres. Silla de la coronación, el rincón de los Poetas, etc.",          
-          "ticket": "tickets/cena-torre-ifel.pdf"
+          "ticket": "tickets/avadia-wenstminster.pdf"
         },
         {
           "time": "18:30",

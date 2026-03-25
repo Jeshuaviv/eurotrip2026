@@ -1,10 +1,40 @@
 let currentScreen = "home";
+let ticketsData = [];
 
 import * as pdfjsLib from "./pdfjs/pdf.mjs";
 pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
 
 
 const PASSWORD = "pemevi26"; // cámbialo
+
+//bottom nav
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.screen;
+    switchScreen(target);
+  });
+});
+
+function switchScreen(screen) {
+
+  currentScreen = screen;
+
+  document.querySelectorAll(".screen").forEach(s => {
+    s.classList.remove("active");
+  });
+
+  document.getElementById(screen + "Screen").classList.add("active");
+
+  document.querySelectorAll(".nav-btn").forEach(b => {
+    b.classList.remove("active");
+  });
+
+  document.querySelector(`[data-screen="${screen}"]`).classList.add("active");
+   // 👇 AQUÍ es donde se muestran los tickets
+  if (screen === "tickets") {
+    renderTickets();
+  }
+}
 
 function checkPin() {
   const input = document.getElementById("pinInput").value;
@@ -86,10 +116,68 @@ function buildActivityChips(days) {
   refreshActivityChips(); // 👈 importante llamarlo aquí
 }
 
+//carga de tickets
+async function loadTickets() {
+  const res = await fetch("data/tickets.json");
+  const data = await res.json();
+  ticketsData = data.tickets || data;
+
+  ticketsData.forEach(ticket => {
+
+    const container = document.getElementById(ticket.category + "Tickets");
+
+    const btn = document.createElement("button");
+    btn.textContent = ticket.title;
+
+    btn.addEventListener("click", () => {
+      openTicket(ticket.file);
+    });
+
+    container.appendChild(btn);
+  });
+}
+
+function renderTickets() {
+
+  document.getElementById("transportTickets").innerHTML = "";
+  document.getElementById("activityTickets").innerHTML = "";
+  document.getElementById("hotelTickets").innerHTML = "";
+
+  ticketsData.forEach(ticket => {
+
+    const container = document.getElementById(ticket.category + "Tickets");
+
+    const card = document.createElement("div");
+    card.className = "ticket-card";
+    card.textContent = ticket.title;
+
+    card.addEventListener("click", () => {
+      openTicket(ticket.file);
+    });
+
+    container.appendChild(card);
+  });
+}
+
+function openTicketById(id) {
+
+  const ticket = ticketsData.find(t => t.id === id);
+
+  if (!ticket) {
+    console.warn("Aviso: No se seleccionó un ticket válido aún.");
+    return;
+  }
+
+  openTicket(ticket.file);
+}
+
 async function loadTrip() {
   const res = await fetch("data/trip.json");
   const data = await res.json();
   const timeline = document.getElementById("timeline");
+  
+  // Limpiar timeline por si acaso
+  timeline.innerHTML = "";
 
   data.days.forEach(day => {
     const daySection = document.createElement("section");
@@ -97,7 +185,6 @@ async function loadTrip() {
 
     daySection.innerHTML = `
       <div class="day-header">
-
         <h2>${day.city} – ${day.country}</h2>
         <p>${formatDate(day.date)}</p>
       </div>
@@ -109,35 +196,50 @@ async function loadTrip() {
     (day.activities || []).forEach(act => {
       const card = document.createElement("article");
       card.className = "card";
-      const uniqueId = day.date + "_" + act.title;
-      card.dataset.id = uniqueId;
-
-      const doneActivities = JSON.parse(localStorage.getItem("doneActivities") || "{}");
-      if (doneActivities[uniqueId]) {
-        card.classList.add("done");
-        card.querySelector(".secondary").textContent = "Hecho ✓";
-      }
+      
+      // Usamos 'file' porque es lo que declaraste en tu JSON
+      const hasTicket = act.file ? true : false;
 
       card.innerHTML = `
         <div class="time">${act.time}</div>
         <h3>${act.title}</h3>
         <p>${act.description || ""}</p>
-        ${act.ticket ? `<button class="cta ticket-btn" data-ticket="${act.ticket}">Ver tickets 🎟</button>` : ""}
+        
+        ${hasTicket ? `
+          <button class="cta ticket-btn" onclick="openTicket('${act.file}')">
+            Ver tickets 🎟
+          </button>` 
+        : ""}
 
         ${act.notes ? `<div class="notes">Tip: ${act.notes}</div>` : ""}
         <button class="cta secondary" onclick="toggleDone(this)">Marcar como hecho</button>
       `;
-
+      
       activitiesContainer.appendChild(card);
     });
 
     timeline.appendChild(daySection);
   });
 
-  buildHomeNavigation(data.days);
-  buildActivityChips(data.days);
-  return true; // 👈 IMPORTANTE
+  if (typeof buildHomeNavigation === "function") buildHomeNavigation(data.days);
+  if (typeof buildActivityChips === "function") buildActivityChips(data.days);
+  
+  return true;
 }
+
+document.addEventListener("click", e => {
+
+  const btn = e.target.closest(".ticket-btn");
+  if (!btn) return;
+
+  const ticketId = btn.dataset.ticket;
+
+  openTicketById(ticketId);
+
+  console.log("Ticket button pressed:", ticketId);
+
+});
+
 
 /*función refresh Activities */
 function refreshActivityChips() {
@@ -323,6 +425,8 @@ function setupSearch() {
 document.addEventListener("DOMContentLoaded", async () => {
   await loadTrip().then(setupSearch);
   history.replaceState({ screen: "home" }, "", "#home");
+  await loadTickets(); 
+  renderTickets();
 });
 
 /* día específico */
@@ -409,6 +513,13 @@ window.addEventListener("popstate", (event) => {
   }
 
   currentScreen = next;
+
+  const overlay = document.getElementById("pdfOverlay");
+  if (overlay.classList.contains("active")) {
+    // Cerramos el overlay sin disparar otro pushState
+    overlay.classList.remove("active");
+    document.body.style.overflow = "auto";
+  }
 });
 
 
@@ -440,58 +551,51 @@ document.addEventListener("click", (e) => {
 
 // 2. Tu función openTicket (Asegúrate de que use el Canvas como vimos)
 async function openTicket(url) {
-  console.log("1. Iniciando openTicket para:", url);
+  // 1. SILENCIAR EL ERROR: Si la URL es undefined, no hacemos nada y no lanzamos error crítico
+  if (!url) return;
+  // Si la URL es un objeto por error, tratamos de extraer el string
+  const finalUrl = typeof url === 'string' ? url : url.file;
+
+  if (!finalUrl) return;
+
   const overlay = document.getElementById("pdfOverlay");
   const container = document.getElementById("pdfPagesContainer");
 
-  if (!overlay || !container) {
-    console.error("ERROR: No encontré el overlay o el container en el HTML");
-    return;
-  }
-
   try {
-    // Forzar visibilidad para descartar error de CSS
     overlay.classList.add("active");
     container.innerHTML = "<p style='color:white; padding:20px;'>Cargando PDF...</p>";
 
-    console.log("2. Cargando documento...");
+    // USAREMOS 'url', que es lo que recibe la función
     const loadingTask = pdfjsLib.getDocument(url);
-    
-    // Si se queda aquí, es un problema de la ruta del archivo o CORS
     const pdf = await loadingTask.promise;
-    console.log("3. PDF cargado correctamente. Páginas:", pdf.numPages);
     
     container.innerHTML = ""; 
 
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      console.log(`4. Renderizando página ${pageNum}...`);
       const page = await pdf.getPage(pageNum);
       const canvas = document.createElement("canvas");
       canvas.style.display = "block";
       canvas.style.margin = "10px auto";
       canvas.style.maxWidth = "100%";
-      canvas.style.background = "white"; // Para ver el área aunque falle el dibujo
-      
       container.appendChild(canvas);
 
       const context = canvas.getContext("2d");
       const viewport = page.getViewport({ scale: 1.5 });
-      
       canvas.height = viewport.height;
       canvas.width = viewport.width;
 
       await page.render({ canvasContext: context, viewport: viewport }).promise;
-      console.log(`5. Página ${pageNum} renderizada.`);
     }
-  } catch (err) {
-    console.error("ERROR CRÍTICO en renderizado:", err);
-    container.innerHTML = `<p style='color:red;'>Error: ${err.message}</p>`;
-  }
 
-  document.body.style.overflow = "hidden"; // Bloquea el fondo
-    overlay.classList.add("active");
-    currentScreen = "pdf";
-    history.pushState({ screen: "pdf" }, "", "#pdf");
+    // Manejo de historial para cerrar con 1 solo clic
+    if (window.location.hash !== "#pdf") {
+      history.pushState({ screen: "pdf" }, "", "#pdf");
+    }
+
+  } catch (err) {
+    console.error("Error al cargar PDF:", err);
+    container.innerHTML = `<p style='color:red; padding:20px;'>Error: ${err.message}</p>`;
+  }
 }
 
 // 3. Exponer a window por si acaso (opcional si usas la delegación de arriba)
@@ -506,6 +610,12 @@ function closeTicket() {
   overlay.classList.remove("active");
   container.innerHTML = "";
   document.body.style.overflow = "auto";
+  
+
+  // Si entramos al PDF con un hash (#pdf), volvemos atrás
+  if (window.location.hash === "#pdf") {
+    window.history.back();
+  }
 }
 
 

@@ -1,5 +1,5 @@
-const STATIC_CACHE = "trip-app-static-v10";
-const TICKETS_CACHE = "trip-app-tickets-v10";
+const STATIC_CACHE = "trip-app-static-v14";
+const TICKETS_CACHE = "trip-app-tickets-v14";
 
 const STATIC_ASSETS = [
   "index.html",
@@ -13,26 +13,47 @@ const STATIC_ASSETS = [
 
 self.addEventListener("install", event => {
   event.waitUntil(
+    
     (async () => {
-      // Cache principal de la app
-      const staticCache = await caches.open(STATIC_CACHE);
-      await staticCache.addAll(STATIC_ASSETS);
+      // Dentro del evento 'install' de tu service-worker.js
+      const tripRes = await fetch("data/trip.json");
+      const tripData = await tripRes.json();
 
-      // Cache separado solo para tickets
-      const ticketsCache = await caches.open(TICKETS_CACHE);
+      const filesFromTrip = [];
+      tripData.days.forEach(day => {
+        day.activities.forEach(act => {
+          if (act.file) filesFromTrip.push(act.file);
+        });
+      });
 
-      // Cargar lista de tickets
-      const response = await fetch("data/tickets.json");
-      const data = await response.json();
+      const cache = await caches.open(STATIC_CACHE);
+      await cache.addAll(filesFromTrip);
 
-      // Guardar cada ticket en caché
-      await ticketsCache.addAll(data.tickets);
+      try {
+        // 1. Cache principal
+        const staticCache = await caches.open(STATIC_CACHE);
+        await staticCache.addAll(STATIC_ASSETS);
+
+        // 2. Cache de tickets
+        const ticketsCache = await caches.open(TICKETS_CACHE);
+        const response = await fetch("data/tickets.json");
+        const data = await response.json();
+
+        // IMPORTANTE: Asegúrate de que esto sea un Array de URLs (strings)
+        // Si data.tickets es una lista de objetos, usa .map() para sacar solo la URL
+        // Extraemos solo la propiedad 'file' de cada objeto para el caché
+        const urlsToCache = data.map(ticket => ticket.file);
+        
+        await ticketsCache.addAll(urlsToCache);
+      } catch (error) {
+        console.error("Fallo en la instalación del SW:", error);
+      }
     })()
   );
-
   self.skipWaiting();
 });
 
+// Mantén tu activate y fetch como estaban...
 self.addEventListener("activate", event => {
   event.waitUntil(self.clients.claim());
 });
@@ -44,3 +65,5 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
+// ELIMINÉ EL SEGUNDO BLOQUE "INSTALL" QUE CAUSABA EL ERROR

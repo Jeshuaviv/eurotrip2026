@@ -495,7 +495,7 @@ button.secondary {
   width: 100%;
   height: 100%;
   background: #000;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: none;
 }
 
@@ -545,3 +545,55 @@ canvas {
 .hidden {
   display: none;
 }
+
+
+/*Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  width: 100vw;
+  height: 56px;
+  background: #111;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #333;
+  z-index: 99;
+}
+
+.bottom-item {
+  display: block;
+  text-align: center;
+  font-size: 16px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 22px;
+}
+
+.nav-btn.active {
+  color: white;
+}
+
+.screen {
+  display: none;
+  padding: 20px 20px 70px; /* evita que el nav tape contenido */
+  z-index: 9;
+}
+
+.screen.active {
+  display: block;
+}
+
+.ticket-section {
+    margin-bottom: 16px;
+}
+
+.ticket-card {
+  color: #dba274;
+}
+

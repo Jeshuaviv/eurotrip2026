@@ -10,7 +10,7 @@
           "time": "19:25",
           "title": "Salida a Roma",
           "description": "Aeropuerto Internacional de la Ciudad de México AICM",
-          "ticket": "tickets/vuelos.pdf",
+          "file": "tickets/vuelos.pdf",
           "notes": "Estar al menos 3 hrs. Antes de abordaje"
         }
       ]
@@ -37,19 +37,19 @@
           "time": "09:15",
           "title": "Roma Clásica",
           "description": "Tour por el Coliseo con acceso a la Arena + Visita al Foro y Palatino - Tour en español.",
-          "ticket": "tickets/coliseo-arena.pdf"
+          "file": "tickets/coliseo-arena.pdf"
         },
         {
           "time": "14:00",
           "title": "Panteon Romano",
           "description": "Llevar 10 minutos antes",
-          "ticket": "tickets/panteon-agripa.pdf"
+          "file": "tickets/panteon-agripa.pdf"
         },
         {
           "time": "17:00",
           "title": "Castillo de Sant’Angelo",
           "description": "Castillo de Sant’Angelo con audioguía. (ESTE VOUCHER (BONO DE RESERVA) NO ES UNA ENTRADA VÁLIDA. El día anterior a vuestra visita recibiréis un email con las entradas electrónicas)",
-          "ticket": "tickets/panteon-agripa.pdf"
+          "file": "tickets/castillo-san-angelo.pdf"
         }
       ]
     },
@@ -68,7 +68,7 @@
           "time": "13:00",
           "title": "Salida a Florencia",
           "description": "Entrada reservada",
-          "ticket": "tickets/roma-florencia.pdf"
+          "file": "tickets/roma-florencia.pdf"
         }
       ]
     },
@@ -81,10 +81,10 @@
           "time": "09:00",
           "title": "Galería de la Academia",
           "description": "Galería de la Academia sin colas + Audioguía",
-          "ticket": "tickets/galeria-academia.pdf"
+          "file": "tickets/galeria-academia.pdf"
         },
         {
-          "time": "13:00T14:30:00Z",
+          "time": "13:00",
           "title": "Galería Uffizi",
           "description": "Entrada reservada"
         }
@@ -99,7 +99,7 @@
           "time": "07:30",
           "title": "Excursión a Pisa, San Gimignano y Siena",
           "description": "El día de la actividad, nos encontraremos en el kiosco del Piazzale Montelungo, ubicado en la parte de atrás de la estación de tren de Santa Maria Novella, en Florencia.",
-          "ticket": "tickets/pisa-gimignano-siena.pdf"
+          "file": "tickets/pisa-gimignano-siena.pdf"
         }
       ]
     },
@@ -112,7 +112,7 @@
           "time": "07:39",
           "title": "Tren a Venecia",
           "description": "Tren a Venecia",
-          "ticket": "tickets/florencia-venecia.pdf"
+          "file": "tickets/florencia-venecia.pdf"
         },
         {
           "time": "13:00",
@@ -130,13 +130,13 @@
           "time": "07:57",
           "title": "Tren a Milán",
           "description": "Trayecto de 2:30hrs",
-          "ticket": "tickets/venecia-milan.pdf"
+          "file": "tickets/venecia-milan.pdf"
         },
         {
           "time": "16:00",
           "title": " Duomo de Milano",
           "description": "Acceso a Domo y azoteas",
-          "ticket": "tickets/duomo-de-milano.pdf"
+          "file": "tickets/duomo-de-milano.pdf"
           
         }
       ]
@@ -150,19 +150,19 @@
           "time": "08:30",
           "title": "Tren de Milán a tirano",
           "description": "Es un recorrido de aproximádamente 2:30hrs",
-          "ticket": "tickets/milan-tirano.pdf"
+          "file": "tickets/milan-tirano.pdf"
         },
         {
           "time": "14:24",
           "title": "Bernina de tirano a Chur",
           "description": "Recorrido de 4hrs aproximádamente",
-          "ticket": "tickets/tirano-chur.pdf"
+          "file": "tickets/tirano-chur.pdf"
         },
         {
           "time": "19:11",
           "title": "Tren de Chur a Zurich",
           "description": "Entrada reservada",
-          "ticket": "tickets/chur-zurich.pdf"
+          "file": "tickets/chur-zurich.pdf"
         }
       ]
     },
@@ -181,7 +181,7 @@
           "time": "16:00",
           "title": "Museo Lint",
           "description": "Lindt Home of Chocolate: Seestrasse 204, 8802 Kilchberg. Puedes unirte al tour los 30 minutos siguientes a la hora elegida.",
-          "ticket": "tickets/museo-lindt.pdf"
+          "file": "tickets/museo-lindt.pdf"
         }
       ]
     },
@@ -194,7 +194,7 @@
           "time": "07:59",
           "title": "Tren a París",
           "description": "Hacemos escala en Karlsruhe - Alemania y llegamos a las 14:00hs a Paris",
-          "ticket": "tickets/zurich-paris.pdf"
+          "file": "tickets/zurich-paris.pdf"
         },
         {
           "time": "15:00",
@@ -205,13 +205,13 @@
           "time": "17:00",
           "title": "Arco del triunfo",
           "description": "Entrada reservada",
-          "ticket": "tickets/arco-del-triunfo.pdf"
+          "file": "tickets/arco-del-triunfo.pdf"
         },
         {
           "time": "21:00",
-          "title": "Cena en Torre Ifel",
+          "title": "Cena en Torre Eiffel",
           "description": "Cena en Madame Brasserie, el restaurante de la Torre Eiffel",
-          "ticket": "tickets/cena-torre-ifel.pdf"
+          "file": "tickets/cena-torre-ifel.pdf"
         }
       ]
     },
@@ -224,7 +224,7 @@
           "time": "9:00",
           "title": "Museo Lovre",
           "description": "Visita al museo a las 9:00am",
-          "ticket": "tickets/museo-lovre.pdf"
+          "file": "tickets/museo-louvre.pdf"
         },
         {
           "time": "13:00",
@@ -242,13 +242,13 @@
           "time": "07:32",
           "title": "Tren a Londres",
           "description": "Viajamos por el Eurostar, viaje de 1:30 hrs aproximádamente",
-          "ticket": "tickets/paris-londres.pdf"
+          "file": "tickets/paris-londres.pdf"
         },
         {
           "time": "17:00",
           "title": "London Eye",
           "description": "Actividad con duración de media hora.",
-          "ticket": "tickets/london-eye.pdf"  
+          "file": "tickets/london-eye.pdf"  
         }
       ]
     },
@@ -261,7 +261,7 @@
           "time": "09:30",
           "title": "Avadia Wesminster",
           "description": "Es una joya gótica imprescindible en Londreses una joya gótica imprescindible en Londres. Silla de la coronación, el rincón de los Poetas, etc.",          
-          "ticket": "tickets/avadia-wenstminster.pdf"
+          "file": "tickets/avadia-wenstminster.pdf"
         },
         {
           "time": "18:30",
@@ -279,7 +279,7 @@
           "time": "07:30",
           "title": "Costwolds",
           "description": "7 paradas imprescindibles en los Cotswolds en un tour para grupos pequeños, duración 10 hrs.",
-          "ticket": "tickets/costwolds.pdf"          
+          "file": "tickets/costwolds.pdf"          
         },
         {
           "time": "20:30",
@@ -309,13 +309,13 @@
           "time": "14:00",
           "title": "Museo Británico",
           "description": "Conocer sitios cercanos que hayan faltado y preparse para volver a México",
-          "ticket":"tickets/museo-britanico.pdf"
+          "file":"tickets/museo-britanico.pdf"
         },
         {
           "time": "19:30",
           "title": "Avión a CDMX",
           "description": "Estar con tiempo en el aeropuerto para el abordaje",
-          "ticket": "tickets/vuelos.pdf"
+          "file": "tickets/vuelos.pdf"
         }
       ]
     },

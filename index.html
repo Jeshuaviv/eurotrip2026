@@ -36,33 +36,49 @@
     </div>
   </div>
 
-  <section class="home" id="homeScreen">
+  <main class="home screen active" id="homeScreen">
     <img class="logo" src="img/icon-192.png" alt="eurotrip2026">
-  <h1>EuroTrip 2026 ✈️</h1>
-  <h2 class="subtitle">Mi itinerario</h2>
+    <h1>EuroTrip 2026 ✈️</h1>
+    <h2 class="subtitle">Mi itinerario</h2>
 
-  <div class="inputSearch">
-    <input type="text" id="searchInput" placeholder="Buscar actividad o lugar..." />
-  <span>🔍</span>
-  </div>
-  
+    <div class="inputSearch">
+      <input type="text" id="searchInput" placeholder="Buscar actividad o lugar..." />
+    <span>🔍</span>
+    </div>
+    <div id="noResults" class="no-results hidden">
+    No encontramos actividades con ese texto 🔍
+    </div>
 
-  <div id="noResults" class="no-results hidden">
-  No encontramos actividades con ese texto 🔍
-  </div>
+    <h3>Calendario</h3>
+    <div class="calendar" id="calendarNav"></div>
 
-  <h3>Calendario</h3>
-  <div class="calendar" id="calendarNav"></div>
+    <h3>Ciudades</h3>
+    <div class="city-filters" id="cityFilters"></div>
 
-  <h3>Ciudades</h3>
-  <div class="city-filters" id="cityFilters"></div>
+    <hr>
+    <h3>Actividades</h3>
+    <p class="descripcion">Aquí verás las actividades que has marcado como hechas y las que aún faltan por realizar.</p>
+    <span id="visor">Mostrar 📌</span>
+    <div id="activityChips"></div>
+  </main>
+  <main id="ticketsScreen" class="screen">
+    <h2>Tickets</h2>
+    <div class="ticket-section">
+      <h3>Transporte</h3>
+      <div id="transportTickets"></div>
+    </div>
 
-  <hr>
-  <h3>Actividades</h3>
-  <p class="descripcion">Aquí verás las actividades que has marcado como hechas y las que aún faltan por realizar.</p>
-  <span id="visor">Mostrar 📌</span>
-  <div id="activityChips"></div>
-  </section>
+    <div class="ticket-section">
+      <h3>Actividades</h3>
+      <div id="activityTickets"></div>
+    </div>
+    <div class="ticket-section">
+        <h3>Hoteles</h3>
+        <div id="hotelTickets"></div>
+      </div>
+  </main>
+  <main id="hotelsScreen" class="screen">
+  </main>
 
   <!-- Timeline -->
   <div class="timeline" id="timeline"></div>
@@ -74,6 +90,11 @@
     </div>
     <div id="pdfPagesContainer"></div>
 </div>
+<nav class="bottom-nav">
+  <button data-screen="home" class="nav-btn active">🏠<span class="bottom-item">inicio</span></button>
+  <button data-screen="tickets" class="nav-btn">🎟<span class="bottom-item">tickets</span></button>
+  <!-- <button data-screen="hotels" class="nav-btn">🏨</button> -->
+</nav>
   <script type="module" src="app.v2.js"></script>
 </body>
 </html>

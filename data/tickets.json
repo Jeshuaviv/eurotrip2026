@@ -7,17 +7,31 @@
     "date": "2026-04-12"
   },
   {
-    "id": "hotel_london",
-    "title": "Hotel en Londres",
+    "id": "hospedaje-milan",
+    "title": "Hotel en Milán",
     "category": "hotel",
-    "file": "tickets/hotel_londres.pdf",
+    "file": "tickets/hospedaje-milan.pdf",
     "date": "2026-04-12"
   },
   {
-    "id": "louvre",
-    "title": "Louvre Museum",
+    "id": "hotel-paris",
+    "title": "Hotel en Paris",
+    "category": "hotel",
+    "file": "tickets/hotel-paris.pdf",
+    "date": "2026-04-12"
+  },
+  {
+    "id": "hotel_london",
+    "title": "Hotel en Londres",
+    "category": "hotel",
+    "file": "tickets/hotel-londres.pdf",
+    "date": "2026-04-12"
+  },
+  {
+    "id": "museo-louvre",
+    "title": "Museo Louvre",
     "category": "activity",
-    "file": "tickets/louvre.pdf",
+    "file": "tickets/museo-louvre.pdf",
     "date": "2026-04-15"
   }
 ]

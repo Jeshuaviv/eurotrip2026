@@ -76,8 +76,10 @@ function buildActivityChips(days) {
 
   const activities = [];
 
+  // Obtener las actividades marcadas manualmente desde localStorage
+  const doneActivities = JSON.parse(localStorage.getItem("doneActivities") || "{}");
+  
   days.forEach(day => {
-
     const dayDate = new Date(day.date);
 
     (day.activities || []).forEach(act => {
@@ -98,22 +100,25 @@ function buildActivityChips(days) {
   activities.sort((a, b) => a.date - b.date);
 
   activities.forEach(act => {
+  const chip = document.createElement("div");
+  chip.className = "activity-chip";
+  chip.textContent = act.title;
+  chip.dataset.id = act.id;
 
-    const chip = document.createElement("div");
+  // AQUÍ es donde debes usar la constante para que VS Code la detecte:
+  const isManualDone = doneActivities[act.id] === true;
+  const isAutoDone = act.date < now;
 
-    chip.className = "activity-chip";
+  if (isManualDone || isAutoDone) {
+    chip.classList.add("done");
+  }
 
-    chip.textContent = act.title;
-    chip.dataset.id = act.id;
+  container.appendChild(chip);
+});
 
-    // marcar como realizada si ya pasó
-    if (act.date < now) {
-      chip.classList.add("done");
-    }
-
-    container.appendChild(chip);
-  });
-  refreshActivityChips(); // 👈 importante llamarlo aquí
+  if (typeof refreshActivityChips === "function") {
+    refreshActivityChips();
+  } // 👈 importante llamarlo aquí
 }
 
 //carga de tickets
@@ -196,6 +201,11 @@ async function loadTrip() {
     (day.activities || []).forEach(act => {
       const card = document.createElement("article");
       card.className = "card";
+
+      // --- PASO CLAVE: Generar y asignar el ID ---
+      const uniqueId = `${day.date}_${act.title}`.trim();
+      card.dataset.id = uniqueId; 
+      // -------------------------------------------
       
       // Usamos 'file' porque es lo que declaraste en tu JSON
       const hasTicket = act.file ? true : false;
@@ -654,27 +664,46 @@ window.showHome = showHome;
 
 
 /* Marcador actividad hecha */
-function toggleDone(button) {
-
-  const card = button.closest(".card");
-  const id = card.dataset.id;
-
+function toggleDone(btn) {
+  // 1. Encontrar la tarjeta y su ID único
+  const card = btn.closest(".card");
+  const uniqueId = card.dataset.id;
+  
+  // 2. Cargar el estado actual de localStorage
   const doneActivities = JSON.parse(localStorage.getItem("doneActivities") || "{}");
 
-  // Toggle visual inmediato
-  card.classList.toggle("done");
-
+  // 3. Alternar el estado
   if (card.classList.contains("done")) {
-    doneActivities[id] = true;
-    button.textContent = "Hecho ✓";
+    // DESMARCAR
+    card.classList.remove("done");
+    btn.textContent = "Marcar como hecho";
+    delete doneActivities[uniqueId];
   } else {
-    delete doneActivities[id];
-    button.textContent = "Marcar como hecho";
+    // MARCAR
+    card.classList.add("done");
+    btn.textContent = "Hecho ✓";
+    doneActivities[uniqueId] = true;
   }
 
+  // 4. Guardar en localStorage
   localStorage.setItem("doneActivities", JSON.stringify(doneActivities));
 
-  refreshActivityChips();
+  // 5. SINCRONIZACIÓN CON EL CHIP (La magia sucede aquí)
+  const chip = document.querySelector(`.activity-chip[data-id="${uniqueId}"]`);
+  
+  if (chip) {
+    if (doneActivities[uniqueId]) {
+      chip.classList.add("done");
+    } else {
+      // Solo quitamos 'done' si la fecha de la actividad NO ha pasado
+      // (Para mantener el auto-marcado por tiempo si así lo deseas)
+      const now = new Date();
+      const [datePart] = uniqueId.split('_'); // Extrae la fecha del ID
+      if (new Date(datePart) > now) {
+        chip.classList.remove("done");
+      }
+    }
+  }
 }
 
 /* toggle actividades */

@@ -1,5 +1,5 @@
-const STATIC_CACHE = "trip-app-static-v14";
-const TICKETS_CACHE = "trip-app-tickets-v14";
+const STATIC_CACHE = "trip-app-static-v15";
+const TICKETS_CACHE = "trip-app-tickets-v15";
 
 const STATIC_ASSETS = [
   "index.html",
@@ -27,8 +27,16 @@ self.addEventListener("install", event => {
       });
 
       const cache = await caches.open(STATIC_CACHE);
-      await cache.addAll(filesFromTrip);
-
+      //await cache.addAll(filesFromTrip);
+      // Cambia el addAll por esto para debuguear:
+      for (const url of filesFromTrip) {
+        try {
+          await cache.add(url);
+        } catch (err) {
+          console.error("No se pudo cachear este archivo:", url);
+        }
+      }
+      
       try {
         // 1. Cache principal
         const staticCache = await caches.open(STATIC_CACHE);

@@ -67,7 +67,7 @@
         {
           "time": "13:00",
           "title": "Salida a Florencia",
-          "description": "Entrada reservada",
+          "description": "Tren a Florencia desde Roma",
           "file": "tickets/roma-florencia.pdf"
         }
       ]
@@ -134,7 +134,7 @@
         },
         {
           "time": "16:00",
-          "title": " Duomo de Milano",
+          "title": " Duomo di Milano",
           "description": "Acceso a Domo y azoteas",
           "file": "tickets/duomo-de-milano.pdf"
           
@@ -154,7 +154,7 @@
         },
         {
           "time": "14:24",
-          "title": "Bernina de tirano a Chur",
+          "title": "Bernina de Tirano a Chur",
           "description": "Recorrido de 4hrs aproximádamente",
           "file": "tickets/tirano-chur.pdf"
         },

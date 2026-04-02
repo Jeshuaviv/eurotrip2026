@@ -4,34 +4,209 @@
     "title": "Vuelo CDMX → Londres",
     "category": "transport",
     "file": "tickets/vuelos.pdf",
-    "date": "2026-04-12"
+    "date": "2026-04-15"
+  },
+  {
+    "id": "hotel-roma",
+    "title": "Hotel en Roma",
+    "category": "hotel",
+    "file": "tickets/hotel-roma.pdf",
+    "date": "2026-04-16"
+  },
+  {
+    "id": "coliseo-y-arena",
+    "title": "Coliseo y Arena",
+    "category": "activity",
+    "file": "tickets/coliseo-arena.pdf",
+    "date": "2026-04-17"
+  },
+  {
+    "id": "panteon-romano",
+    "title": "Panteón Romano",
+    "category": "activity",
+    "file": "tickets/panteon-agripa.pdf",
+    "date": "2026-04-17"
+  },
+  {
+    "id": "castillo-santangelo",
+    "title": "Castillo de Sant’Angelo",
+    "category": "activity",
+    "file": "tickets/castillo-san-angelo.pdf",
+    "date": "2026-04-17"
+  },
+  {
+    "id": "roma-florencia",
+    "title": "Tren Roma - Florencia",
+    "category": "transport",
+    "file": "tickets/roma-florencia.pdf",
+    "date": "2026-04-18"
+  },
+  {
+    "id": "hotel-florencia",
+    "title": "Hotel en Florencia",
+    "category": "hotel",
+    "file": "tickets/hotel-florencia.pdf",
+    "date": "2026-04-18"
+  },
+  {
+    "id": "galeria-de-la-academia",
+    "title": "Galería de la Academia",
+    "category": "activity",
+    "file": "tickets/galeria-academia.pdf",
+    "date": "2026-04-19"
+  },
+  {
+    "id": "toscana",
+    "title": "Tour a la Toscana",
+    "category": "activity",
+    "file": "tickets/pisa-gimignano-siena.pdf",
+    "date": "2026-04-20"
+  },
+  {
+    "id": "florencia-vencia",
+    "title": "Tren Florencia - Venecia",
+    "category": "transport",
+    "file": "tickets/florencia-venecia.pdf",
+    "date": "2026-04-21"
+  },
+  {
+    "id": "hotel-venecia",
+    "title": "Hotel en Venecia",
+    "category": "hotel",
+    "file": "tickets/hotel-venecia.pdf",
+    "date": "2026-04-21"
+  },
+  {
+    "id": "venecia-milan",
+    "title": "Tren a Milán",
+    "category": "transport",
+    "file": "tickets/venecia-milan.pdf",
+    "date": "2026-04-22"
   },
   {
     "id": "hospedaje-milan",
     "title": "Hotel en Milán",
     "category": "hotel",
     "file": "tickets/hospedaje-milan.pdf",
-    "date": "2026-04-12"
+    "date": "2026-04-22"
+  },
+  {
+    "id": "duomo-milano",
+    "title": "Duomo di Milano",
+    "category": "activity",
+    "file": "tickets/duomo-de-milano.pdf",
+    "date": "2026-04-22"
+  },
+  {
+    "id": "milano-tirano",
+    "title": "Tren Milan a Tirano",
+    "category": "transport",
+    "file": "tickets/milan-tirano.pdf",
+    "date": "2026-04-23"
+  },
+  {
+    "id": "tirano-chur",
+    "title": "Tren de Tirano a Chur",
+    "category": "transport",
+    "file": "tickets/tirano-chur.pdf",
+    "date": "2026-04-23"
+  },
+  {
+    "id": "Chur-Zurich",
+    "title": "Tren de Chur a Zurich",
+    "category": "transport",
+    "file": "tickets/chur-zurich.pdf",
+    "date": "2026-04-23"
+  },
+  {
+    "id": "hotel-zurich",
+    "title": "Hotel Zurich",
+    "category": "hotel",
+    "file": "tickets/hotel-zurich.pdf",
+    "date": "2026-04-23"
+  },
+  {
+    "id": "museo-lint",
+    "title": "Visita al Museo Lint",
+    "category": "activity",
+    "file": "tickets/museo-lindt.pdf",
+    "date": "2026-04-24"
+  },
+  {
+    "id": "zurich-paris",
+    "title": "Tren a Paris",
+    "category": "transport",
+    "file": "tickets/zurich-paris.pdf",
+    "date": "2026-04-25"
   },
   {
     "id": "hotel-paris",
     "title": "Hotel en Paris",
     "category": "hotel",
     "file": "tickets/hotel-paris.pdf",
-    "date": "2026-04-12"
+    "date": "2026-04-25"
   },
   {
-    "id": "hotel_london",
-    "title": "Hotel en Londres",
-    "category": "hotel",
-    "file": "tickets/hotel-londres.pdf",
-    "date": "2026-04-12"
+    "id": "arco-del-triunfo",
+    "title": "Arco del Triunfo",
+    "category": "activity",
+    "file": "tickets/arco-del-triunfo.pdf",
+    "date": "2026-04-25"
+  },
+  {
+    "id": "arco-del-triunfo",
+    "title": "Cena en Torre Eiffel",
+    "category": "activity",
+    "file": "tickets/cena-torre-ifel.pdf",
+    "date": "2026-04-25"
   },
   {
     "id": "museo-louvre",
     "title": "Museo Louvre",
     "category": "activity",
     "file": "tickets/museo-louvre.pdf",
-    "date": "2026-04-15"
+    "date": "2026-04-26"
+  },
+  {
+    "id": "paris-londres",
+    "title": "Eurostar Paris Londres",
+    "category": "transport",
+    "file": "tickets/paris-londres.pdf",
+    "date": "2026-04-27"
+  },
+  {
+    "id": "hotel-londres",
+    "title": "Hotel en Londres",
+    "category": "hotel",
+    "file": "tickets/hotel-londres.pdf",
+    "date": "2026-04-27"
+  },
+  {
+    "id": "london-eye",
+    "title": "London Eye",
+    "category": "activity",
+    "file": "tickets/london-eye.pdf",
+    "date": "2026-04-27"
+  },
+  {
+    "id": "abadia-westminster",
+    "title": "Avadia Westminster",
+    "category": "activity",
+    "file": "tickets/avadia-westminster.pdf",
+    "date": "2026-04-28"
+  },
+  {
+    "id": "costwolds",
+    "title": "Los Costwolds",
+    "category": "activity",
+    "file": "tickets/costwolds.pdf",
+    "date": "2026-04-29"
+  },
+  {
+    "id": "museo-britanico",
+    "title": "Museo Británico",
+    "category": "activity",
+    "file": "tickets/museo-britanico.pdf",
+    "date": "2026-05-01"
   }
 ]

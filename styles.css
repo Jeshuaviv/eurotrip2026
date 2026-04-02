@@ -490,13 +490,18 @@ button.secondary {
 
 
 .screen {
-  position: fixed;
+  /* position: fixed; */
   inset: 0;
   width: 100%;
   height: 100%;
   background: #000;
   /* overflow: hidden; */
   display: none;
+}
+
+#ticketsScreen {
+  position: fixed;
+  overflow-y: scroll;
 }
 
 .screen.active {
@@ -595,5 +600,7 @@ canvas {
 
 .ticket-card {
   color: #dba274;
+  padding: 4px;
+  margin-bottom: 6px;
 }
 

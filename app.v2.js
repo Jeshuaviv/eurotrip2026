@@ -154,7 +154,7 @@ function renderTickets() {
 
     const card = document.createElement("div");
     card.className = "ticket-card";
-    card.textContent = ticket.title;
+    card.textContent = "🧾 " + ticket.title;
 
     card.addEventListener("click", () => {
       openTicket(ticket.file);

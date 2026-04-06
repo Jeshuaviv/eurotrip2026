@@ -150,7 +150,7 @@
           "time": "11:00",
           "title": "Hospedaje en Milán",
           "description": "Via Vitruvio, 44, Milán, Lombardía 20124, Italia",
-          "file": "tickets/venecia-milan.pdf"
+          "file": "tickets/hospedaje-milan.pdf"
         },
         {
           "time": "16:00",
@@ -168,7 +168,7 @@
       "activities": [
         {
           "time": "08:30",
-          "title": "Tren de Milán a tirano",
+          "title": "Tren de Milán a Tirano",
           "description": "Es un recorrido de aproximádamente 2:30hrs",
           "file": "tickets/milan-tirano.pdf"
         },

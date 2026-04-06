@@ -21,10 +21,11 @@
       "country": "Italia 🇮🇹",
       "activities": [
         {
-          "time": "03:30",
+          "time": "16:30",
           "title": "Arribo a Roma",
           "description": "Llegar al Hotel y tomar la tarde para conocer algo de la Roma Clásica. Piazza Novona, Fontana di Trevi.",
-          "notes": "Llegar 20 min antes"
+          "notes": "Llegar 20 min antes",
+          "file": "tickets/hotel-roma.pdf"
         }
       ]
     },
@@ -61,7 +62,8 @@
         {
           "time": "18:25",
           "title": "Vaticano",
-          "description": "Capilla Sixtina, Basícilica de San Pedro, Plaza de San Pedro."
+          "description": "Capilla Sixtina, Basícilica de San Pedro, Plaza de San Pedro.",
+          "file": "tickets/vaticano-museos.pdf"
           
         },
         {
@@ -69,6 +71,12 @@
           "title": "Salida a Florencia",
           "description": "Tren a Florencia desde Roma",
           "file": "tickets/roma-florencia.pdf"
+        },
+        {
+          "time": "21:00",
+          "title": "Hotel en Florencia",
+          "description": "Hotel Florence Piazza San Paolino",
+          "file": "tickets/hotel-florencia.pdf"
         }
       ]
     },
@@ -115,6 +123,12 @@
           "file": "tickets/florencia-venecia.pdf"
         },
         {
+          "time": "10:30",
+          "title": "Palazzo Marcello Hotel al Sole",
+          "description": "Entrada reservada",
+          "file": "tickets/hotel-venecia.pdf"
+        },
+        {
           "time": "13:00",
           "title": "Tarde para conocer Venecia",
           "description": "Entrada reservada"
@@ -130,6 +144,12 @@
           "time": "07:57",
           "title": "Tren a Milán",
           "description": "Trayecto de 2:30hrs",
+          "file": "tickets/venecia-milan.pdf"
+        },
+        {
+          "time": "11:00",
+          "title": "Hospedaje en Milán",
+          "description": "Via Vitruvio, 44, Milán, Lombardía 20124, Italia",
           "file": "tickets/venecia-milan.pdf"
         },
         {
@@ -163,6 +183,12 @@
           "title": "Tren de Chur a Zurich",
           "description": "Entrada reservada",
           "file": "tickets/chur-zurich.pdf"
+        },
+        {
+          "time": "20:00",
+          "title": "Hotel Hirschen",
+          "description": "Entrada reservada",
+          "file": "tickets/hotel-zurich.pdf"
         }
       ]
     },
@@ -198,8 +224,9 @@
         },
         {
           "time": "15:00",
-          "title": "Arribo al hotel",
-          "description": "Entrada reservada"
+          "title": "Hotel du Cadran",
+          "description": "Entrada reservada",
+          "file": "tickets/hotel-paris.pdf"
         },
         {
           "time": "17:00",
@@ -245,6 +272,12 @@
           "file": "tickets/paris-londres.pdf"
         },
         {
+          "time": "15:00",
+          "title": "Premier Inn London County Hall",
+          "description": "Arribo al Hotel County Hall",
+          "file": "tickets/hotel-londres.pdf"
+        },
+        {
           "time": "17:00",
           "title": "London Eye",
           "description": "Actividad con duración de media hora.",
@@ -259,7 +292,7 @@
       "activities": [
         {
           "time": "09:30",
-          "title": "Avadia Wesminster",
+          "title": "Avadia Westminster",
           "description": "Es una joya gótica imprescindible en Londreses una joya gótica imprescindible en Londres. Silla de la coronación, el rincón de los Poetas, etc.",          
           "file": "tickets/avadia-westminster.pdf"
         },

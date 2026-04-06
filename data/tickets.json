@@ -35,6 +35,13 @@
     "date": "2026-04-17"
   },
   {
+    "id": "museos-Vaticano",
+    "title": "Museos Vaticanos y Capilla Sixtina",
+    "category": "activity",
+    "file": "tickets/castillo-san-angelo.pdf",
+    "date": "2026-04-18"
+  },
+  {
     "id": "roma-florencia",
     "title": "Tren Roma - Florencia",
     "category": "transport",

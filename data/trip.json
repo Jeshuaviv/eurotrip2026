@@ -60,14 +60,14 @@
       "country": "Italia 🇮🇹🇻🇦",
       "activities": [
         {
-          "time": "18:25",
+          "time": "12:00",
           "title": "Vaticano",
           "description": "Capilla Sixtina, Basícilica de San Pedro, Plaza de San Pedro.",
           "file": "tickets/vaticano-museos.pdf"
           
         },
         {
-          "time": "13:00",
+          "time": "16:26",
           "title": "Salida a Florencia",
           "description": "Tren a Florencia desde Roma",
           "file": "tickets/roma-florencia.pdf"
@@ -93,8 +93,8 @@
         },
         {
           "time": "13:00",
-          "title": "Galería Uffizi",
-          "description": "Entrada reservada"
+          "title": "Florencia clásica",
+          "description": "Conocer el centro; Ponte Vecchio, Santa Maria del Fiore, Piazzale Michelangelo, etc."
         }
       ]
     },
@@ -256,7 +256,7 @@
         {
           "time": "13:00",
           "title": "Tarde por Paris",
-          "description": "Entrada reservada"
+          "description": "Plaza de la concordia, Notre dame, Panteon, Barrio Latino, etc."
         }
       ]
     },

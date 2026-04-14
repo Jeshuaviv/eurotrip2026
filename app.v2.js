@@ -36,24 +36,24 @@ function switchScreen(screen) {
   }
 }
 
-function checkPin() {
-  const input = document.getElementById("pinInput").value;
-  const error = document.getElementById("errorMsg");
+// function checkPin() {
+//   const input = document.getElementById("pinInput").value;
+//   const error = document.getElementById("errorMsg");
 
-  if (input === PASSWORD) {
-    localStorage.setItem("trip_access", "granted");
-    document.getElementById("lockscreen").style.display = "none";
-  } else {
-    error.textContent = "Código incorrecto";
-  }
-}
+//   if (input === PASSWORD) {
+//     localStorage.setItem("trip_access", "granted");
+//     document.getElementById("lockscreen").style.display = "none";
+//   } else {
+//     error.textContent = "Código incorrecto";
+//   }
+// }
 
-function checkAccessOnLoad() {
-  if (localStorage.getItem("trip_access") === "granted") {
-  }
-}
+// function checkAccessOnLoad() {
+//   if (localStorage.getItem("trip_access") === "granted") {
+//   }
+// }
 
-checkAccessOnLoad();
+// checkAccessOnLoad();
 
 /*función formato de fecha */
 function formatDate(dateStr) {
@@ -652,13 +652,13 @@ window.closeTicket = closeTicket;
 document.getElementById("backHome")
   .addEventListener("click", showHome);
 
-document.getElementById("enterPin")
-  .addEventListener("click", checkPin);
+// document.getElementById("enterPin")
+//   .addEventListener("click", checkPin);
 
 
 window.openTicket = openTicket;
 window.toggleDone = toggleDone;
-window.checkPin = checkPin;
+// window.checkPin = checkPin;
 window.showHome = showHome;
 
 

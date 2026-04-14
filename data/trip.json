@@ -23,7 +23,7 @@
         {
           "time": "16:30",
           "title": "Arribo a Roma",
-          "description": "Llegar al Hotel y tomar la tarde para conocer algo de la Roma Clásica. Piazza Novona, Fontana di Trevi.",
+          "description": "Una vez que lleguen al aeropuerto de Roma y habiendo pasado migración, tendrán que seguir los señalamientos de <b>BUS</b> hasta llegar a los <b>stands de Terravision</b>, ahí tendrán que comprar su boleto para llegar a la <b>Estación Roma Termini</b>, que está casi en el centro de Roma; una vez llegando a Estación Roma Termini tendrán que dirigirse a su hospedaje, el Hotel Fellini, para dejar su equipaje. Pueden moverse en metro o lo que les parezca más conveniente. <br/><br/>Fotana di Trevi,<br/> Iglesia de San Ignacio de Loyola<br/> Panteón / Piazza Navona,<br/> Coliseo Romano,<br/> Moisés de Miguel Ángel, <br/>Monumento Victor Manuel II",
           "notes": "Llegar 20 min antes",
           "file": "tickets/hotel-roma.pdf"
         }
@@ -37,7 +37,7 @@
         {
           "time": "09:15",
           "title": "Roma Clásica",
-          "description": "Tour por el Coliseo con acceso a la Arena + Visita al Foro y Palatino - Tour en español.",
+          "description": "Tour por el Coliseo con acceso a la Arena + Visita al Foro y Palatino - Tour en español. Seguir indicaciones del Voucher<br/> Visita con luz de día los mismos lugares",
           "file": "tickets/coliseo-arena.pdf"
         },
         {
@@ -60,22 +60,29 @@
       "country": "Italia 🇮🇹🇻🇦",
       "activities": [
         {
+          "time": "7:00",
+          "title": "Basílica de San Pedro",
+          "description": "Capilla Sixtina, Basícilica de San Pedro, Plaza de San Pedro. Aquí pueden subir a la Cúpula de la Basílica, <b>los boletos solamente se compran en persona.<b>",
+          "file": "tickets/vaticano-museos.pdf"
+          
+        },
+        {
           "time": "12:00",
-          "title": "Vaticano",
-          "description": "Capilla Sixtina, Basícilica de San Pedro, Plaza de San Pedro.",
+          "title": "Museos Baticanos",
+          "description": "Capilla Sixtina, Basícilica de San Pedro, Plaza de San Pedro.<br/><br>La entrada a los Museos Vaticanos tienen horarios específicos, así que procuren estar unos 15 minutos antes cerca para ubicar la entrada y pasar. Sus boletos los eximen de la fila.<br/><br>Deberán llegar a la entrada de los museos para escanear sus boletos.<br><br>Dentro de los museos hay restaurantes de ‘comida rápida’, por cualquier cosa.",
           "file": "tickets/vaticano-museos.pdf"
           
         },
         {
           "time": "16:26",
           "title": "Salida a Florencia",
-          "description": "Tren a Florencia desde Roma",
+          "description": "Tren a Florencia desde Roma. Sugerencia estar como mínimo 40 minuto antes ya que puede haber cambios",
           "file": "tickets/roma-florencia.pdf"
         },
         {
           "time": "21:00",
           "title": "Hotel en Florencia",
-          "description": "Hotel Florence Piazza San Paolino",
+          "description": "Hotel Florence Piazza San Paolino. Desde la estación de Florencia pueden caminar a su alojamiento; es una ciudad tranquila. Considerar que el camino es empedrado",
           "file": "tickets/hotel-florencia.pdf"
         }
       ]
@@ -88,13 +95,13 @@
         {
           "time": "09:00",
           "title": "Galería de la Academia",
-          "description": "Galería de la Academia sin colas + Audioguía",
+          "description": "Galería de la Academia sin colas + Audioguía. Para entrar a este lugar, también deberán llegar como mínimo 10 minutos antes para que les digan si deben cambiar su boleto físico o no. Una vez en el lugar, verán que hay filas con el horario que tienen asignado, así que podrán formarse.",
           "file": "tickets/galeria-academia.pdf"
         },
         {
           "time": "13:00",
           "title": "Florencia clásica",
-          "description": "Conocer el centro; Ponte Vecchio, Santa Maria del Fiore, Piazzale Michelangelo, etc."
+          "description": "Conocer el centro:<br><br> Catedral de Santa Maria del Fiore<br>Campanario de Giotto<br>Baptisterio<br>Plaza de la República<br>Fuente del Porcellino<br>Plaza de la Señoría<br>Ponte Vecchio<br>Piazzale Michelangelo (atardecer). <br><br> Lugares sugeridos para comer: All’Antico Vinaio, La Cucina de Ghianda, Gelateria dei Neri, La Strega Nocciola Gelateria, La Prosciutteria, SandwiChic, Mercato Centrale."
         }
       ]
     },
@@ -106,7 +113,7 @@
         {
           "time": "07:30",
           "title": "Excursión a Pisa, San Gimignano y Siena",
-          "description": "El día de la actividad, nos encontraremos en el kiosco del Piazzale Montelungo, ubicado en la parte de atrás de la estación de tren de Santa Maria Novella, en Florencia.",
+          "description": "El día de la actividad, nos encontraremos en el kiosco del Piazzale Montelungo, ubicado en la parte de atrás de la estación de tren de Santa Maria Novella, en Florencia. Deberán llegar mínimo 15 minutos antes al lugar.",
           "file": "tickets/pisa-gimignano-siena.pdf"
         }
       ]
@@ -125,13 +132,13 @@
         {
           "time": "10:30",
           "title": "Palazzo Marcello Hotel al Sole",
-          "description": "Entrada reservada",
+          "description": "Una vez que lleguen a la estación Venecia, podrán dirigirse caminando a su alojamiento, y pedir que guarden las maletas, en caso de no poder hacer el check-in.",
           "file": "tickets/hotel-venecia.pdf"
         },
         {
           "time": "13:00",
           "title": "Tarde para conocer Venecia",
-          "description": "Entrada reservada"
+          "description": "Plaza San Marco<br> Campanario y Basílica de San Marco<br> Palacio Ducal<br>Puente de los Suspiros<br>Libreria Acqua Alta<br>En esta librería pueden tomarse una foto en una Góndola.<br>Puente de Rialto<br>En caso de querer subirse a una góndola, el precio será el mismo desde todas las estaciones (alrededor de 100 euros). Tendrán que verificar las personas admitidas en cada góndola. <br><br>Lugares sugeridos para comer: Baci e Pasta, Rossopomodoro, I Tre Mercanti, Suso Gelateria"
         }
       ]
     },
@@ -143,19 +150,25 @@
         {
           "time": "07:57",
           "title": "Tren a Milán",
-          "description": "Trayecto de 2:30hrs",
+          "description": "Trayecto de 2:30hrs.",
           "file": "tickets/venecia-milan.pdf"
         },
         {
           "time": "11:00",
           "title": "Hospedaje en Milán",
-          "description": "Via Vitruvio, 44, Milán, Lombardía 20124, Italia",
+          "description": "Via Vitruvio, 44, Milán, Lombardía 20124, Italia. <br>Una vez llegando a Milán, podrán caminar a su hospedaje, el Airbnb de Via Vitrubio, sin embargo, tendrán que enviar un mensaje para ver si les permiten resguardar su equipaje.<br>Si no, les recomiendo una aplicacion llamada Bounce donde podrán buscar lugares para resguardar su hospedaje por horas.",
+          "file": "tickets/hospedaje-milan.pdf"
+        },
+        {
+          "time": "12:00",
+          "title": "Itinerario por Milán",
+          "description": "Parque Sempione<br>Castello Sforzesco<br>Arco della Pace<br>En Milán hay varios lugares y terrazas que pueden visitar, incluso un Starbucks considerado de los más bonitos del mundo",
           "file": "tickets/hospedaje-milan.pdf"
         },
         {
           "time": "16:00",
           "title": " Duomo di Milano",
-          "description": "Acceso a Domo y azoteas",
+          "description": "Acceso a Domo y azoteas. <br><br>Galleria Vittorio Emmanuelle.",
           "file": "tickets/duomo-de-milano.pdf"
           
         }
@@ -169,19 +182,19 @@
         {
           "time": "08:30",
           "title": "Tren de Milán a Tirano",
-          "description": "Es un recorrido de aproximádamente 2:30hrs",
+          "description": "Es un recorrido de aproximádamente 2:30hrs. Una vez que lleguen aquí, deberán ubicar la estación desde donde sale el <b>Bernina Express</b> Una vez que la ubiquen, podrán pasear un poco de tiempo en el pueblito.",
           "file": "tickets/milan-tirano.pdf"
         },
         {
           "time": "14:24",
           "title": "Bernina de Tirano a Chur",
-          "description": "Recorrido de 4hrs aproximádamente",
+          "description": "Recorrido de 4hrs aproximádamente. Mucha atención a sus asientos. Aquí tendrán 40 minutos para conectar con su tren a Zurich, asi que otra vez, por favor fíjense bien donde harán esa conexión.",
           "file": "tickets/tirano-chur.pdf"
         },
         {
           "time": "19:11",
           "title": "Tren de Chur a Zurich",
-          "description": "Entrada reservada",
+          "description": "Al llegar a la estación, podrán caminar hasta su hospedaje. Sugiero que este dia descansen lo más que puedan paraque aguanten el viaje que viene",
           "file": "tickets/chur-zurich.pdf"
         },
         {
@@ -198,15 +211,15 @@
       "country": "Suiza 🇨🇭",
       "activities": [
         {
-          "time": "08:30",
+          "time": "09:30",
           "title": "Zurich",
-          "description": "Centro Histórico, Bahnhofstrasse, Iglesia de Grossmünster, Lago Zurich, etc"
+          "description": "Centro Histórico<br> Calle Bahnhofstrasse<br> Iglesia de Grossmünster<br> Lago de Zurich<br><br>Barrio de Lindenhof<br>Mirador Üetliberg."
           
         },
         {
           "time": "16:00",
           "title": "Museo Lint",
-          "description": "Lindt Home of Chocolate: Seestrasse 204, 8802 Kilchberg. Puedes unirte al tour los 30 minutos siguientes a la hora elegida.",
+          "description": "Lindt Home of Chocolate: Seestrasse 204, 8802 Kilchberg. Puedes unirte al tour los 30 minutos siguientes a la hora elegida.  (solamente deberán mostrar su voucher/ticket)",
           "file": "tickets/museo-lindt.pdf"
         }
       ]
@@ -219,19 +232,19 @@
         {
           "time": "07:59",
           "title": "Tren a París",
-          "description": "Hacemos escala en Karlsruhe - Alemania y llegamos a las 14:00hs a Paris",
+          "description": "Llegar con anticipación para ubicar el tren. Hacemos escala en Karlsruhe - Alemania y llegamos a las 14:00hs a Paris.<br>br>Una vez que lleguen a Paris, podrán tomar el metro y caminar a su hotel, el Hôtel du Cadran by Collection Vesper.<br><br> <b>Ojo</b>: últimamente han multado MUCHO en los trenes y metro de París. Pidan ayuda para comprar los boletos y de preferencia, tengan evidencia en foto o video de que les están ayudando a hacerlo.",
           "file": "tickets/zurich-paris.pdf"
         },
         {
           "time": "15:00",
           "title": "Hotel du Cadran",
-          "description": "Entrada reservada",
+          "description": "Entrada reservada.",
           "file": "tickets/hotel-paris.pdf"
         },
         {
           "time": "17:00",
           "title": "Arco del triunfo",
-          "description": "Entrada reservada",
+          "description": "Tienen horario abierto, así que no se preocupen pero chequen sus horarios para que les de tiemo de regresar a la cena.",
           "file": "tickets/arco-del-triunfo.pdf"
         },
         {
@@ -250,13 +263,13 @@
         {
           "time": "9:00",
           "title": "Museo Lovre",
-          "description": "Visita al museo a las 9:00am",
+          "description": "Visita al museo a las 9:00am. Tengan en cuenta que el museo es enorme, así que prioricen lo que quieran ver.",
           "file": "tickets/museo-louvre.pdf"
         },
         {
           "time": "13:00",
           "title": "Tarde por Paris",
-          "description": "Plaza de la concordia, Notre dame, Panteon, Barrio Latino, etc."
+          "description": "Plaza de la concordia, Notre dame, Panteon, Barrio Latino, etc.<br><br> Opera Garnier: Deben llegar a formarse unos minutos antes de su horario para que no esperen tiempo de más.<br><br>Galerías Lafayette Haussmann: El mirador es gratis y hay una cafetería dentro.<br><br>Barrio de Montmartre<br><br>Muro de los Te AmoMolino Rojo<br><br>Basílica de Sacre Cour<br>Las vistas desde aquí son muy lindas."
         }
       ]
     },

@@ -215,5 +215,12 @@
     "category": "activity",
     "file": "tickets/museo-britanico.pdf",
     "date": "2026-05-01"
+  },
+  {
+    "id": "itinerario",
+    "title": "Itinerario Completo",
+    "category": "activity",
+    "file": "tickets/itinerario.pdf",
+    "date": "2026-05-01"
   }
 ]

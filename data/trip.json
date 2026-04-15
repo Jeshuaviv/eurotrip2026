@@ -281,20 +281,31 @@
         {
           "time": "07:32",
           "title": "Tren a Londres",
-          "description": "Viajamos por el Eurostar, viaje de 1:30 hrs aproximádamente",
+          "description": "Viajamos por el Eurostar, viaje de 1:30 hrs aproximádamente.<br><br>Deberán llegar dos horas antes a la estación de trenes, ya que deberán pasar migración y seguridad para salir de Francia.<br>En la migración de Londres les pedirán su ETA si hay un caso extraordinario o si es que quieren verificar datos o fotos.<br><br>Llegando a Londres podrán tomar el Metro para llegar a su hospedaje.",
           "file": "tickets/paris-londres.pdf"
         },
         {
-          "time": "15:00",
+          "time": "9:00",
           "title": "Premier Inn London County Hall",
-          "description": "Arribo al Hotel County Hall",
+          "description": "Arribo al Hotel County Hall. Deberán preguntar sobre si pueden dejar sus maletas en resguardo para que salgan a turistear",
+          "file": "tickets/hotel-londres.pdf"
+        },
+        {
+          "time": "10:00",
+          "title": "Itinerario por Londres",
+          "description": "Itinerario por Londres:<br><br>Big Ben<br> Tower Bridge<br>Catedral de San Pablo",
           "file": "tickets/hotel-londres.pdf"
         },
         {
           "time": "17:00",
           "title": "London Eye",
-          "description": "Actividad con duración de media hora.",
+          "description": "Actividad con duración de media hora. Deben llegar a redimir sus boletos; recuerden que la entrada incluye solo UNA vuelta en el London Eye, así que aprovechen para ver la ciudad y tomar muchas fotos.",
           "file": "tickets/london-eye.pdf"  
+        },
+        {
+          "time": "18:00",
+          "title": "Tarde Libre en Londres",
+          "description": "Soho → Camden (explorar + bar/gig pequeño)"
         }
       ]
     },
@@ -310,9 +321,14 @@
           "file": "tickets/avadia-westminster.pdf"
         },
         {
+          "time": "11:30",
+          "title": "Itinerario por Londres",
+          "description": "Big Ben<br>Chinatown<br>Covent Garden<br>SoHoCatedral de San Pablo<br>Puente Millenium<br>LIBRE"
+        },
+        {
           "time": "18:30",
           "title": "Sky garden o Pubs",
-          "description": "Volver por la tarde para pasar un rato por el Sky garden o Pubs"
+          "description": "Volver por la tarde para pasar un rato por el Sky garden o Pubs. Camden"
         }
       ]
     },
@@ -324,13 +340,13 @@
                 {
           "time": "07:30",
           "title": "Costwolds",
-          "description": "7 paradas imprescindibles en los Cotswolds en un tour para grupos pequeños, duración 10 hrs.",
+          "description": "7 paradas imprescindibles en los Cotswolds en un tour para grupos pequeños, duración 10 hrs. Llegar 15 min antes de la hora descrita.",
           "file": "tickets/costwolds.pdf"          
         },
         {
           "time": "20:30",
           "title": "The Dublin Castle",
-          "description": "My Best Unbeaten Brother+Lorenza Wildcard+ TC Tenet. Bandas británicas locales, tickets en https://wegottickets.com/f/16874"
+          "description": "My Best Unbeaten Brother+Lorenza Wildcard+ TC Tenet. Bandas británicas locales, tickets en Wegottickets"
         }
       ]
     },
@@ -341,8 +357,8 @@
       "activities": [
         {
           "time": "08:30",
-          "title": "Stonehenge",
-          "description": "Posible ida a Stoneheange o conocer más de Londres"
+          "title": "Día Libre",
+          "description": "con la libertad de ir a los Pubs que quieran, hacer compras y más! Aprovechen su ultimo día “completo”. Visitar por ejemplo Museo De Historia Natural, Calle Abbey Road, Covent Garden, Igloo Boats, Neals Yard."
         }
       ]
     },

@@ -12,6 +12,7 @@ document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const target = btn.dataset.screen;
     switchScreen(target);
+    showHome();
   });
 });
 

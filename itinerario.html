@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <meta name="theme-color" content="#111111">
+  
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="EuroTrip">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="apple-touch-icon" href="img/icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="img/icon-512.png">
+  <link rel="apple-touch-startup-image" href="img/splash-1290x2796.png">
+
+  <title>EuroTrip 2026</title>
+
+  <link rel="icon" type="image/png" href="img/icon-192.png">
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <button id="backHome" class="backHome">➜</button>
+  <!-- Pantalla PIN  -->
+  <!-- <div id="lockscreen" class="lockscreen">
+    <div class="lock-box">
+      <h1>EuroTrip 🔒</h1>
+      <p>Ingresa el código del viaje</p>
+      <input type="password" id="pinInput" placeholder="Código" />
+      <button id="enterPin">Entrar</button>
+      <p id="errorMsg"></p>
+    </div>
+  </div> -->
+
+  <main class="home screen active" id="homeScreen">
+    <img class="logo" src="img/icon-192.png" alt="eurotrip2026">
+    <h1>EuroTrip 2026 ✈️</h1>
+    <h2 class="subtitle">Mi itinerario</h2>
+
+    <div class="inputSearch">
+      <input type="text" id="searchInput" placeholder="Buscar actividad o lugar..." />
+    <span>🔍</span>
+    </div>
+    <div id="noResults" class="no-results hidden">
+    No encontramos actividades con ese texto 🔍
+    </div>
+
+    <h3>Calendario</h3>
+    <div class="calendar" id="calendarNav"></div>
+
+    <h3>Ciudades</h3>
+    <div class="city-filters" id="cityFilters"></div>
+
+    <hr>
+    <h3>Actividades</h3>
+    <p class="descripcion">Aquí verás las actividades que has marcado como hechas y las que aún faltan por realizar.</p>
+    <span id="visor">Mostrar 📌</span>
+    <div id="activityChips"></div>
+  </main>
+  <main id="ticketsScreen" class="screen">
+    <h2>Tickets</h2>
+    <div class="ticket-section">
+      <h3>Transporte</h3>
+      <div id="transportTickets"></div>
+    </div>
+
+    <div class="ticket-section">
+      <h3>Actividades</h3>
+      <div id="activityTickets"></div>
+    </div>
+    <div class="ticket-section">
+        <h3>Hoteles</h3>
+        <div id="hotelTickets"></div>
+      </div>
+  </main>
+  <main id="hotelsScreen" class="screen">
+  </main>
+
+  <!-- Timeline -->
+  <div class="timeline" id="timeline"></div>
+
+  <!-- Visor ticket -->
+<div id="pdfOverlay">
+    <div class="pdf-controls" style="padding: 10px; text-align: right;">
+        <button id="closeTicket" class="cta">Cerrar ✕</button>
+    </div>
+    <div id="pdfPagesContainer"></div>
+</div>
+<nav class="bottom-nav">
+  <button id="home" data-screen="home" class="nav-btn active">🏠<span class="bottom-item">inicio</span></button>
+  <button data-screen="tickets" class="nav-btn">🎟<span class="bottom-item">tickets</span></button>
+  <!-- <button data-screen="hotels" class="nav-btn">🏨</button> -->
+</nav>
+  <script type="module" src="app.v2.js"></script>
+</body>
+</html>

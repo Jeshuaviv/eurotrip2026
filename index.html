@@ -1,100 +1,543 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <meta name="theme-color" content="#111111">
-  
-  <!-- iOS PWA -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="EuroTrip">
-  <meta name="mobile-web-app-capable" content="yes">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Europa 2026 Story</title>
 
-  <link rel="apple-touch-icon" href="img/icon-192.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="img/icon-512.png">
-  <link rel="apple-touch-startup-image" href="img/splash-1290x2796.png">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,sans-serif; }
 
-  <title>EuroTrip 2026</title>
+body {
+  overflow: hidden;
+  background: black;
+  color: white;
+}
 
-  <link rel="icon" type="image/png" href="img/icon-192.png">
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="styles.css" />
+/* CONTENEDOR */
+.story-container {
+  display: flex;
+  width: 500vw;
+  height: 100vh;
+  transition: transform 0.8s cubic-bezier(.77,0,.18,1);
+}
+
+/* SLIDES */
+.story {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px;
+  position:relative;
+}
+
+/* FONDOS */
+.s1 { background: radial-gradient(circle at top, #1a2a6c, #000); }
+.s2 { background: radial-gradient(circle at top, #42275a, #000); }
+.s3 { background: radial-gradient(circle at top, #134e5e, #000); }
+.s4 { background: radial-gradient(circle at top, #1e3c72, #000); }
+.s5 { background: radial-gradient(circle at top, #3a1c71, #000); }
+.s6 { 
+  background: radial-gradient(circle at top, #000428, #004e92);
+}
+
+.big-number {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* TEXTO */
+.block {
+  opacity:0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.block.show {
+  opacity:1;
+  transform: translateY(0);
+}
+
+h1 {
+  font-size:2.5rem;
+  margin-bottom:20px;
+}
+
+p {
+  font-size:1.2rem;
+  opacity:0.9;
+  line-height:1.5;
+}
+
+/* PROGRESS BAR */
+.progress {
+  position:absolute;
+  top:15px;
+  left:10px;
+  right:10px;
+  display:flex;
+  gap:5px;
+  z-index: 9;
+}
+
+.bar {
+  flex:1;
+  height:3px;
+  background: rgba(255,255,255,0.2);
+  overflow:hidden;
+}
+
+.fill {
+  height:100%;
+  width:0%;
+  background:white;
+}
+
+/* TOQUE LATERAL */
+.click-zone {
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:50%;
+}
+
+.left { left:0; }
+.right { right:0; }
+
+.cinematic {
+  overflow: hidden;
+}
+
+/* FONDO con zoom constante */
+.cinematic [class*="bg"] {
+  position:absolute;
+  width:110%;
+  height:110%;
+  background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee');
+  background-size: cover;
+  background-position: center;
+  filter: blur(2px) brightness(0.6);
+  animation: zoomSlow 12s ease-in-out infinite alternate;
+}
+
+.cinematic .bg1 {
+  background-image: url('img/viaje.jpeg');
+}
+
+.cinematic .bg2 {
+  background-image: url('img/viaje3.jpeg');
+}
+
+.cinematic .bg3 {
+  background-image: url('img/viaje4.jpeg');
+}
+
+.cinematic .bg4 {
+  background-image: url('img/viaje1.jpeg');
+}
+.cinematic .bg5 {
+  background-image: url('img/viaje2.jpeg');
+}
+.cinematic .bg6 {
+  background-image: url('img/viaje5.jpeg');
+}
+.cinematic .bg7 {
+  background-image: url('img/viaje6.jpeg');
+}
+
+/* CAPA OSCURA */
+.cinematic .overlay {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8));
+}
+
+/* CONTENIDO */
+.cinematic .content {
+  position:relative;
+  z-index:2;
+  text-align:center;
+}
+
+/* TEXTO */
+.cinematic h1.big {
+  font-size:4rem;
+  font-weight:800;
+  margin:20px 0;
+  letter-spacing:-1px;
+}
+
+.cinematic h2,
+.cinematic h3 {
+  font-weight:400;
+  opacity:0.8;
+}
+
+/* ANIMACIÓN TEXTO */
+.line {
+  opacity:0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.line.show {
+  opacity:1;
+  transform: translateY(0);
+}
+
+.delay {
+  transition-delay: 0.6s;
+}
+
+/* ZOOM LENTO */
+@keyframes zoomSlow {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+.final .cta {
+  margin-top:40px;
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:black;
+  font-weight:bold;
+  font-size:1rem;
+  cursor:pointer;
+  transition: all 0.3s ease;
+}
+
+.final .cta:hover {
+  transform: scale(1.05);
+  opacity:0.9;
+}
+
+.secondary {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  margin-left: 10px;
+}
+
+</style>
 </head>
 <body>
-
-  <button id="backHome" class="backHome">➜</button>
-  <!-- Pantalla PIN  -->
-  <!-- <div id="lockscreen" class="lockscreen">
-    <div class="lock-box">
-      <h1>EuroTrip 🔒</h1>
-      <p>Ingresa el código del viaje</p>
-      <input type="password" id="pinInput" placeholder="Código" />
-      <button id="enterPin">Entrar</button>
-      <p id="errorMsg"></p>
-    </div>
-  </div> -->
-
-  <main class="home screen active" id="homeScreen">
-    <img class="logo" src="img/icon-192.png" alt="eurotrip2026">
-    <h1>EuroTrip 2026 ✈️</h1>
-    <h2 class="subtitle">Mi itinerario</h2>
-
-    <div class="inputSearch">
-      <input type="text" id="searchInput" placeholder="Buscar actividad o lugar..." />
-    <span>🔍</span>
-    </div>
-    <div id="noResults" class="no-results hidden">
-    No encontramos actividades con ese texto 🔍
-    </div>
-
-    <h3>Calendario</h3>
-    <div class="calendar" id="calendarNav"></div>
-
-    <h3>Ciudades</h3>
-    <div class="city-filters" id="cityFilters"></div>
-
-    <hr>
-    <h3>Actividades</h3>
-    <p class="descripcion">Aquí verás las actividades que has marcado como hechas y las que aún faltan por realizar.</p>
-    <span id="visor">Mostrar 📌</span>
-    <div id="activityChips"></div>
-  </main>
-  <main id="ticketsScreen" class="screen">
-    <h2>Tickets</h2>
-    <div class="ticket-section">
-      <h3>Transporte</h3>
-      <div id="transportTickets"></div>
-    </div>
-
-    <div class="ticket-section">
-      <h3>Actividades</h3>
-      <div id="activityTickets"></div>
-    </div>
-    <div class="ticket-section">
-        <h3>Hoteles</h3>
-        <div id="hotelTickets"></div>
-      </div>
-  </main>
-  <main id="hotelsScreen" class="screen">
-  </main>
-
-  <!-- Timeline -->
-  <div class="timeline" id="timeline"></div>
-
-  <!-- Visor ticket -->
-<div id="pdfOverlay">
-    <div class="pdf-controls" style="padding: 10px; text-align: right;">
-        <button id="closeTicket" class="cta">Cerrar ✕</button>
-    </div>
-    <div id="pdfPagesContainer"></div>
+<audio id="bgMusic" loop>
+  <source src="https://s3.ustatik.com/audio.com.audio/transcoding/89/52/1821881985325289-1821881985491914-1821881996442349.mp3?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=F0E8U41NBMMW3Y027UTJ%2F20260504%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20260504T231254Z&X-Amz-SignedHeaders=host&X-Amz-Expires=518400&X-Amz-Signature=1f646d034d2bfd268cad1be9235ad4bb478a65e3d3aea88850e848e36be5c3c7" type="audio/mpeg">
+</audio>
+<div class="progress">
+  <div class="bar"><div class="fill"></div></div>
+  <div class="bar"><div class="fill"></div></div>
+  <div class="bar"><div class="fill"></div></div>
+  <div class="bar"><div class="fill"></div></div>
+  <div class="bar"><div class="fill"></div></div>
+  <div class="bar"><div class="fill"></div></div>
+  <div class="bar"><div class="fill"></div></div>
 </div>
-<nav class="bottom-nav">
-  <button id="home" data-screen="home" class="nav-btn active">🏠<span class="bottom-item">inicio</span></button>
-  <button data-screen="tickets" class="nav-btn">🎟<span class="bottom-item">tickets</span></button>
-  <!-- <button data-screen="hotels" class="nav-btn">🏨</button> -->
-</nav>
-  <script type="module" src="app.v2.js"></script>
+<div class="story-container" id="container">
+
+  <!-- SLIDE 1 -->
+  <div class="story s1 cinematic">
+    
+    <!-- FONDO -->
+    <div class="bg1"></div>
+
+    <!-- OVERLAY -->
+    <div class="overlay"></div>
+
+    <div>
+      <h1 class="block">🎉 ¡Muchas felicidades!</h1>
+      <p class="block">Has concluido con éxito tu viaje por Europa 2026</p>
+    </div>
+
+    <div class="click-zone left"></div>
+    <div class="click-zone right"></div>
+  </div>
+
+    <!-- SLIDE 6 CINEMÁTICA -->
+  <div class="story s6 cinematic">
+
+    <!-- FONDO -->
+    <div class="bg"></div>
+
+    <!-- OVERLAY -->
+    <div class="overlay"></div>
+
+    <!-- CONTENIDO -->
+    <div class="content">
+      <h2 class="line">Caminaste por día un promedio</h2>
+      
+        <h1 class="big" id="kmCounter">0 km</h1>
+        <h3 class="line delay">El día que caminaste más fue en la Toscana (19km)</h3>
+    </div>
+
+    <div class="click-zone left"></div>
+    <div class="click-zone right"></div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="story s2 cinematic">
+    <!-- FONDO -->
+    <div class="bg2"></div>
+
+    <!-- OVERLAY -->
+    <div class="overlay"></div>
+
+    <div>
+      <p>Incluyo éstos</p>
+      <h1 class="block">🌍Países</h1>
+      <p class="block">
+        Italia (+Vaticano)<br>Suiza<br>Francia<br>Inglaterra
+      </p>
+    </div>
+    <div class="click-zone left"></div>
+    <div class="click-zone right"></div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="story s3 cinematic">
+    <!-- FONDO -->
+    <div class="bg3"></div>
+
+    <!-- OVERLAY -->
+    <div class="overlay"></div>
+    <div>
+      <p>Visitaste éstas</p>
+      <h1 class="block">🏙️ Ciudades</h1>
+      <p class="block">
+        Roma · Vaticano · Florencia · Venecia · Milán · Zurich · París · Londres
+      </p>
+    </div>
+    <div class="click-zone left"></div>
+    <div class="click-zone right"></div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="story s4 cinematic">
+    <!-- FONDO -->
+    <div class="bg4"></div>
+
+    <!-- OVERLAY -->
+    <div class="overlay"></div>
+    <div>
+      <p>Conociste éstos</p>
+      <h1 class="block">✨ Lugares</h1>
+      <p class="block">
+        <b>Toscana:</b> · Siena · Pisa · San Gimignano · Tirano<br><br>
+        <b>Cotswolds:</b>
+        Bibury · Snowshill · Stow on the Wold
+      </p>
+    </div>
+    <div class="click-zone left"></div>
+    <div class="click-zone right"></div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="story s5 cinematic">
+    <!-- FONDO -->
+    <div class="bg5"></div>
+
+    <!-- OVERLAY -->
+    <div class="overlay"></div>
+    <div>
+      <h1 class="block">🏛️ Experiencias</h1>
+      <p class="block">
+        Fontana di Trevi · Coliseo · Panteón Romano · Castillo de Sant’Angelo · Museos Vaticanos · Galería de la Academia · Duomo di Milano · Museo Lint · Abadía Fraumünster · Arco del Triunfo
+· Louvre · Torre Eiffel ·
+        London Eye · Soho · The Dublin Castle · Guiness Open Gate Brewery · Avadia Westminster · Mural y casa de David Bowie · Museo Británico
+      </p>
+    </div>
+    <div class="click-zone left"></div>
+    <div class="click-zone right"></div>
+  </div>
+
+  <!-- SLIDE FINAL -->
+<div class="story cinematic final">
+
+  <div class="bg7"></div>
+  <div class="overlay"></div>
+
+  <div class="content">
+    <p class="line">Este no fue solo un viaje…</p>
+    <h1 class="line big">Fue una historia</h1>
+    <p class="line medium">que ahora forma parte de ti</p>
+
+    <button class="cta line" onclick="shareStory()">Compartir</button>
+<button class="cta line secondary" onclick="closeStory()">Cerrar</button>
+  </div>
+
+</div>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll(".story");
+const fills = document.querySelectorAll(".fill");
+const total = 7;
+let timer;
+
+/* Mostrar animaciones */
+function showBlocks(index){
+  const blocks = slides[index].querySelectorAll(".block");
+  blocks.forEach((b,i)=>{
+    setTimeout(()=> b.classList.add("show"), i*400);
+  });
+}
+
+/* Reset blocks */
+function resetBlocks(){
+  document.querySelectorAll(".block").forEach(b=>{
+    b.classList.remove("show");
+  });
+}
+
+/* Barra progreso */
+function startProgress(){
+  fills.forEach(f=>f.style.width="0%");
+  let fill = fills[current];
+
+  let width = 0;
+  clearInterval(timer);
+
+  timer = setInterval(()=>{
+    width += 1;
+    fill.style.width = width + "%";
+
+    if(width >= 100){
+      next();
+    }
+  }, 40); // duración ~4s
+}
+
+/* control de audio */
+let musicStarted = false;
+
+function startMusic(){
+  if(!musicStarted){
+    const audio = document.getElementById("bgMusic");
+    audio.volume = 0.4;
+    audio.play().catch(()=>{});
+    musicStarted = true;
+  }
+}
+
+/* Navegación */
+function next(){
+  startMusic();
+  if(current < total-1){
+    current++;
+    update();
+  }
+}
+
+function prev(){
+  startMusic();
+  if(current > 0){
+    current--;
+    update();
+  }
+}
+
+function animateCinematicSlide() {
+  const counter = document.getElementById("kmCounter");
+  const lines = document.querySelectorAll(".cinematic .line");
+
+  // Animar texto
+  lines.forEach((el, i) => {
+    setTimeout(() => el.classList.add("show"), i * 400);
+  });
+
+  // Contador suave tipo easing
+  let value = 0;
+  const target = 11;
+
+  const duration = 1500;
+  const start = performance.now();
+
+  function animate(time) {
+    const progress = Math.min((time - start) / duration, 1);
+    
+    // easing
+    const eased = 1 - Math.pow(1 - progress, 3);
+
+    value = target * eased;
+    counter.innerText = value.toFixed(1) + " km";
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      counter.innerText = "11 km";
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+function update(){
+  document.getElementById("container").style.transform =
+    `translateX(-${current * 100}vw)`;
+
+  resetBlocks();
+  setTimeout(()=> showBlocks(current), 200);
+  startProgress();
+
+  // 👇 activar contador en slide 6
+  if(current === 1){
+    setTimeout(animateCinematicSlide, 300);
+    }  
+}
+
+/* Click zonas */
+document.querySelectorAll(".right").forEach(el=>{
+  el.onclick = next;
+});
+
+document.querySelectorAll(".left").forEach(el=>{
+  el.onclick = prev;
+});
+
+function shareStory(){
+
+  const shareData = {
+    title: "Mi viaje por Europa 2026",
+    text: "Revive mi viaje por Europa ✈️🌍",
+    url: window.location.href
+  };
+
+  // 📱 Mobile (Web Share API)
+  if(navigator.share){
+    navigator.share(shareData)
+      .catch(()=>{});
+  } else {
+
+    // 💻 Fallback: copiar link
+    navigator.clipboard.writeText(shareData.url);
+
+    alert("Link copiado para compartir ✈️");
+  }
+}
+
+function closeStory(){
+  document.body.style.transition = "opacity 0.8s ease";
+  document.body.style.opacity = 0;
+
+  setTimeout(()=>{
+    // puedes redirigir o cerrar vista
+    window.location.href = "itinerario.html";
+  },800);
+}
+
+/* INIT */
+showBlocks(0);
+startProgress();
+</script>
+
 </body>
 </html>

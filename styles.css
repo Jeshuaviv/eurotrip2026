@@ -7,7 +7,6 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #0f0f10;
   color: white;
-  /* overflow: hidden; */
 }
 
 html, body {
@@ -18,6 +17,7 @@ a {
     text-decoration: none;
     color: #aaa;
 }
+
 /* Home */
 .home {
   min-height: 100vh;

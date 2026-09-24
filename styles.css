@@ -261,6 +261,10 @@ span#visor.close {
   top: 0;
   background: #0f0f10;
   padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
 
 .day-header h2 {
@@ -605,5 +609,400 @@ canvas {
   color: #dba274;
   padding: 4px;
   margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   ESTILOS CMS / EDITOR DE VIAJES MÓVIL
+   ========================================================================== */
+
+#cmsScreen {
+  max-width: 600px;
+  margin: 0 auto;
+  overflow-y: auto;
+  padding-bottom: 90px;
+}
+
+.cms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #222;
+  margin-bottom: 16px;
+}
+
+.cms-trip-info h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.cms-subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #ffc596;
+}
+
+.cms-header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Pestañas */
+.cms-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.cms-tab-btn {
+  background: #1c1c1e;
+  border: 1px solid #2c2c30;
+  color: #aaa;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.cms-tab-btn.active {
+  background: #dba274;
+  color: #111;
+  border-color: #dba274;
+}
+
+.cms-tab-pane {
+  display: none;
+}
+
+.cms-tab-pane.active {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Formularios */
+.cms-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 13px;
+  color: #ccc;
+  font-weight: 500;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+
+.day-select-row {
+  display: flex;
+  gap: 8px;
+}
+
+select,
+input[type="text"],
+input[type="date"],
+input[type="time"],
+textarea {
+  background: #1c1c1e;
+  border: 1px solid #333336;
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  width: 100%;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+select:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+textarea:focus {
+  border-color: #dba274;
+}
+
+/* Botones y CTAs */
+.cta.primary {
+  background: linear-gradient(135deg, #dba274, #b87b4b);
+  color: #111;
+  font-weight: 700;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(219, 162, 116, 0.25);
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.cta.primary:active {
+  transform: scale(0.98);
+}
+
+.cta.secondary {
+  background: #242426;
+  color: #eee;
+  border: 1px solid #3a3a3c;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cta.danger {
+  background: #3b1818;
+  color: #ff6b6b;
+  border: 1px solid #5c2424;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cta.small {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 10px;
+}
+
+.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.file-button-label {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Subida de archivo */
+.file-upload-box {
+  background: #18181a;
+  border: 1px dashed #3a3a3c;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.file-preview {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #26262a;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #dba274;
+}
+
+#cmsClearFileBtn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.help-text {
+  font-size: 11px;
+  color: #777;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Lista de días */
+.cms-days-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cms-day-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1c1c1e;
+  border: 1px solid #2a2a2e;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.cms-day-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cms-day-meta {
+  font-size: 12px;
+  color: #888;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px;
+  opacity: 0.7;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+}
+
+/* Modales */
+.cms-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.cms-modal.hidden {
+  display: none !important;
+}
+
+.cms-modal-content {
+  background: #18181a;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 22px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.cms-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cms-modal-header h3 {
+  margin: 0;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Tarjetas de viajes en selector */
+.cms-trips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cms-trip-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  border: 1px solid #333;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.cms-trip-card.active {
+  border-color: #dba274;
+  background: #2a221d;
+}
+
+/* Toast flotante */
+.toast {
+  position: fixed;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2c2c2e;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.toast.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.toast.hidden {
+  display: none;
+}
+
+/* Botón rápido + Actividad en la cabecera del día */
+.add-act-quick-btn {
+  background: #222225;
+  border: 1px solid #38383c;
+  color: #dba274;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.add-act-quick-btn:hover {
+  background: #333338;
+}
+
+.empty-state-text {
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 0;
 }
 

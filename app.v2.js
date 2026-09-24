@@ -2,6 +2,8 @@ let currentScreen = "home";
 let ticketsData = [];
 
 import * as pdfjsLib from "./pdfjs/pdf.mjs";
+import { db } from "./db.js";
+window.tripDb = db;
 pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
 
 
@@ -123,20 +125,28 @@ function buildActivityChips(days) {
 }
 
 //carga de tickets
+//carga de tickets
 async function loadTickets() {
-  const res = await fetch("data/tickets.json");
-  const data = await res.json();
-  ticketsData = data.tickets || data;
+  const activeTripData = await db.getActiveTrip();
+  ticketsData = activeTripData.tickets || [];
+
+  const transportContainer = document.getElementById("transportTickets");
+  const activityContainer = document.getElementById("activityTickets");
+  const hotelContainer = document.getElementById("hotelTickets");
+
+  if (transportContainer) transportContainer.innerHTML = "";
+  if (activityContainer) activityContainer.innerHTML = "";
+  if (hotelContainer) hotelContainer.innerHTML = "";
 
   ticketsData.forEach(ticket => {
-
     const container = document.getElementById(ticket.category + "Tickets");
+    if (!container) return;
 
     const btn = document.createElement("button");
     btn.textContent = ticket.title;
 
     btn.addEventListener("click", () => {
-      openTicket(ticket.file);
+      openTicket(ticket.fileBlob || ticket.file || ticket);
     });
 
     container.appendChild(btn);
@@ -144,21 +154,29 @@ async function loadTickets() {
 }
 
 function renderTickets() {
+  const transport = document.getElementById("transportTickets");
+  const activity = document.getElementById("activityTickets");
+  const hotel = document.getElementById("hotelTickets");
 
-  document.getElementById("transportTickets").innerHTML = "";
-  document.getElementById("activityTickets").innerHTML = "";
-  document.getElementById("hotelTickets").innerHTML = "";
+  if (transport) transport.innerHTML = "";
+  if (activity) activity.innerHTML = "";
+  if (hotel) hotel.innerHTML = "";
+
+  if (!ticketsData || ticketsData.length === 0) {
+    if (transport) transport.innerHTML = "<p style='color:#888; font-size:14px; padding:10px;'>No hay tickets registrados aún.</p>";
+    return;
+  }
 
   ticketsData.forEach(ticket => {
-
     const container = document.getElementById(ticket.category + "Tickets");
+    if (!container) return;
 
     const card = document.createElement("div");
     card.className = "ticket-card";
     card.textContent = "🧾 " + ticket.title;
 
     card.addEventListener("click", () => {
-      openTicket(ticket.file);
+      openTicket(ticket.fileBlob || ticket.file || ticket);
     });
 
     container.appendChild(card);
@@ -166,7 +184,6 @@ function renderTickets() {
 }
 
 function openTicketById(id) {
-
   const ticket = ticketsData.find(t => t.id === id);
 
   if (!ticket) {
@@ -174,25 +191,45 @@ function openTicketById(id) {
     return;
   }
 
-  openTicket(ticket.file);
+  openTicket(ticket.fileBlob || ticket.file || ticket);
 }
 
 async function loadTrip() {
-  const res = await fetch("data/trip.json");
-  const data = await res.json();
+  const activeTripData = await db.getActiveTrip();
+  const trip = activeTripData.trip;
+  const days = activeTripData.days || [];
   const timeline = document.getElementById("timeline");
   
-  // Limpiar timeline por si acaso
+  // Actualizar encabezados del viaje si existen
+  if (trip) {
+    const titleEl = document.querySelector("#homeScreen h1");
+    if (titleEl && trip.name) titleEl.textContent = `${trip.name} ✈️`;
+    const subtitleEl = document.querySelector("#homeScreen .subtitle");
+    if (subtitleEl && trip.subtitle) subtitleEl.textContent = trip.subtitle;
+  }
+
+  // Limpiar timeline
   timeline.innerHTML = "";
 
-  data.days.forEach(day => {
+  if (days.length === 0) {
+    timeline.innerHTML = `<div style="padding:40px; text-align:center; color:#aaa;">
+      <h3>No tienes actividades registradas aún</h3>
+      <p>Pronto podrás agregar tu itinerario.</p>
+    </div>`;
+    return true;
+  }
+
+  days.forEach(day => {
     const daySection = document.createElement("section");
     daySection.className = "day";
 
     daySection.innerHTML = `
       <div class="day-header">
-        <h2>${day.city} – ${day.country}</h2>
-        <p>${formatDate(day.date)}</p>
+        <div>
+          <h2>${day.city} – ${day.country}</h2>
+          <p>${formatDate(day.date)}</p>
+        </div>
+        <button class="add-act-quick-btn" onclick="openCmsAddActivity('${day.id}')" title="Agregar actividad a este día">+ Actividad</button>
       </div>
       <div class="activities"></div>
     `;
@@ -206,10 +243,8 @@ async function loadTrip() {
       // --- PASO CLAVE: Generar y asignar el ID ---
       const uniqueId = `${day.date}_${act.title}`.trim();
       card.dataset.id = uniqueId; 
-      // -------------------------------------------
       
-      // Usamos 'file' porque es lo que declaraste en tu JSON
-      const hasTicket = act.file ? true : false;
+      const hasTicket = (act.file || act.fileBlob) ? true : false;
 
       card.innerHTML = `
         <div class="time">${act.time}</div>
@@ -217,7 +252,7 @@ async function loadTrip() {
         <p>${act.description || ""}</p>
         
         ${hasTicket ? `
-          <button class="cta ticket-btn" onclick="openTicket('${act.file}')">
+          <button class="cta ticket-btn" data-ticket="${encodeURIComponent(act.file || uniqueId)}" onclick="openTicket('${act.file || uniqueId}')">
             Ver tickets 🎟
           </button>` 
         : ""}
@@ -232,8 +267,8 @@ async function loadTrip() {
     timeline.appendChild(daySection);
   });
 
-  if (typeof buildHomeNavigation === "function") buildHomeNavigation(data.days);
-  if (typeof buildActivityChips === "function") buildActivityChips(data.days);
+  if (typeof buildHomeNavigation === "function") buildHomeNavigation(days);
+  if (typeof buildActivityChips === "function") buildActivityChips(days);
   
   return true;
 }
@@ -433,11 +468,16 @@ function setupSearch() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await loadTrip().then(setupSearch);
-  history.replaceState({ screen: "home" }, "", "#home");
-  await loadTickets(); 
+window.reloadAppViews = async function () {
+  await loadTrip();
+  await loadTickets();
   renderTickets();
+  if (typeof setupSearch === "function") setupSearch();
+};
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await window.reloadAppViews();
+  history.replaceState({ screen: "home" }, "", "#home");
 });
 
 /* día específico */
@@ -549,67 +589,93 @@ function resetView() {
   });
 }
 
-// 1. Delegación de eventos (Captura el clic incluso en botones nuevos)
+// 1. Delegación de eventos para tickets
 document.addEventListener("click", (e) => {
   const btn = e.target.closest(".ticket-btn");
   if (!btn) return;
 
   e.preventDefault();
-  const url = btn.dataset.ticket;
-  console.log("Abriendo ticket desde:", url); // Para depurar
-  openTicket(url);
+  const rawTicket = btn.dataset.ticket;
+  const ticketTarget = rawTicket ? decodeURIComponent(rawTicket) : null;
+  if (ticketTarget) {
+    console.log("Abriendo ticket desde botón:", ticketTarget);
+    openTicket(ticketTarget);
+  }
 });
 
-// 2. Tu función openTicket (Asegúrate de que use el Canvas como vimos)
-async function openTicket(url) {
-  // 1. SILENCIAR EL ERROR: Si la URL es undefined, no hacemos nada y no lanzamos error crítico
-  if (!url) return;
-  // Si la URL es un objeto por error, tratamos de extraer el string
-  const finalUrl = typeof url === 'string' ? url : url.file;
-
-  if (!finalUrl) return;
+// 2. Función openTicket con soporte para PDF e imágenes (locales u online)
+async function openTicket(target) {
+  if (!target) return;
 
   const overlay = document.getElementById("pdfOverlay");
   const container = document.getElementById("pdfPagesContainer");
 
   try {
     overlay.classList.add("active");
-    container.innerHTML = "<p style='color:white; padding:20px;'>Cargando PDF...</p>";
+    container.innerHTML = "<p style='color:white; padding:20px; text-align:center;'>Cargando ticket...</p>";
+    document.body.style.overflow = "hidden";
 
-    // USAREMOS 'url', que es lo que recibe la función
-    const loadingTask = pdfjsLib.getDocument(url);
-    const pdf = await loadingTask.promise;
+    // Resolver URL (si es Blob, file relativo o ID de ticket)
+    let resolvedUrl = await db.resolveTicketUrl(target);
     
-    container.innerHTML = ""; 
-
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      const canvas = document.createElement("canvas");
-      canvas.style.display = "block";
-      canvas.style.margin = "10px auto";
-      canvas.style.maxWidth = "100%";
-      container.appendChild(canvas);
-
-      const context = canvas.getContext("2d");
-      const viewport = page.getViewport({ scale: 1.5 });
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-
-      await page.render({ canvasContext: context, viewport: viewport }).promise;
+    // Si no resolvió directamente pero es un string ID o file, buscar en ticketsData
+    if (!resolvedUrl && typeof target === "string") {
+      const match = ticketsData.find(t => t.id === target || t.file === target);
+      if (match) {
+        resolvedUrl = await db.resolveTicketUrl(match.fileBlob || match.file || match);
+      }
     }
 
-    // Manejo de historial para cerrar con 1 solo clic
+    if (!resolvedUrl) {
+      container.innerHTML = "<p style='color:orange; padding:20px; text-align:center;'>No se encontró el archivo del ticket.</p>";
+      return;
+    }
+
+    const isImage = (typeof resolvedUrl === "string" && /\.(jpe?g|png|webp|gif|bmp)($|\?)/i.test(resolvedUrl)) ||
+                    (target.fileBlob && target.fileBlob.type && target.fileBlob.type.startsWith("image/"));
+
+    if (isImage) {
+      container.innerHTML = `
+        <div style="padding:15px; text-align:center;">
+          <img src="${resolvedUrl}" style="max-width:100%; max-height:80vh; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.6); object-fit:contain;" alt="Ticket" />
+        </div>
+      `;
+    } else {
+      // Renderizado con PDF.js
+      const loadingTask = pdfjsLib.getDocument(resolvedUrl);
+      const pdf = await loadingTask.promise;
+      
+      container.innerHTML = ""; 
+
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        const canvas = document.createElement("canvas");
+        canvas.style.display = "block";
+        canvas.style.margin = "10px auto";
+        canvas.style.maxWidth = "100%";
+        container.appendChild(canvas);
+
+        const context = canvas.getContext("2d");
+        const viewport = page.getViewport({ scale: 1.5 });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        await page.render({ canvasContext: context, viewport: viewport }).promise;
+      }
+    }
+
+    // Manejo de historial para cerrar con gesto atrás
     if (window.location.hash !== "#pdf") {
       history.pushState({ screen: "pdf" }, "", "#pdf");
     }
 
   } catch (err) {
-    console.error("Error al cargar PDF:", err);
-    container.innerHTML = `<p style='color:red; padding:20px;'>Error: ${err.message}</p>`;
+    console.error("Error al cargar ticket:", err);
+    container.innerHTML = `<p style='color:#ff6b6b; padding:20px; text-align:center;'>Error al cargar ticket: ${err.message}</p>`;
   }
 }
 
-// 3. Exponer a window por si acaso (opcional si usas la delegación de arriba)
+// 3. Exponer a window por si acaso
 window.openTicket = openTicket;
 
 /* close Ticket */
@@ -673,21 +739,25 @@ function toggleDone(btn) {
   // 2. Cargar el estado actual de localStorage
   const doneActivities = JSON.parse(localStorage.getItem("doneActivities") || "{}");
 
+  let isDone = false;
   // 3. Alternar el estado
   if (card.classList.contains("done")) {
     // DESMARCAR
     card.classList.remove("done");
     btn.textContent = "Marcar como hecho";
     delete doneActivities[uniqueId];
+    isDone = false;
   } else {
     // MARCAR
     card.classList.add("done");
     btn.textContent = "Hecho ✓";
     doneActivities[uniqueId] = true;
+    isDone = true;
   }
 
-  // 4. Guardar en localStorage
+  // 4. Guardar en localStorage e IndexedDB
   localStorage.setItem("doneActivities", JSON.stringify(doneActivities));
+  db.toggleActivity(uniqueId, isDone).catch(console.error);
 
   // 5. SINCRONIZACIÓN CON EL CHIP (La magia sucede aquí)
   const chip = document.querySelector(`.activity-chip[data-id="${uniqueId}"]`);

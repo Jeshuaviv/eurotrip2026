@@ -1,77 +1,124 @@
-const STATIC_CACHE = "trip-app-static-v21";
-const TICKETS_CACHE = "trip-app-tickets-v21";
+const CACHE_VERSION = "trip-app-v23";
+const STATIC_CACHE = `static-${CACHE_VERSION}`;
+const TICKETS_CACHE = `tickets-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
+  "./",
+  "itinerario.html",
   "index.html",
   "styles.css",
   "app.v2.js",
+  "cms.js",
+  "db.js",
+  "manifest.json",
+  "img/icon-192.png",
+  "img/icon-512.png",
   "data/trip.json",
   "data/tickets.json",
   "pdfjs/pdf.mjs",
-  "pdfjs/pdf.worker.mjs"  
+  "pdfjs/pdf.worker.mjs"
 ];
 
-self.addEventListener("install", event => {
+// Instalación: Cachear assets principales de la aplicación
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    
     (async () => {
-      // Dentro del evento 'install' de tu service-worker.js
-      const tripRes = await fetch("data/trip.json");
-      const tripData = await tripRes.json();
-
-      const filesFromTrip = [];
-      tripData.days.forEach(day => {
-        day.activities.forEach(act => {
-          if (act.file) filesFromTrip.push(act.file);
-        });
-      });
-
-      const cache = await caches.open(STATIC_CACHE);
-      //await cache.addAll(filesFromTrip);
-      // Cambia el addAll por esto para debuguear:
-      for (const url of filesFromTrip) {
+      // 1. Cachear shell estático de la PWA
+      const staticCache = await caches.open(STATIC_CACHE);
+      for (const asset of STATIC_ASSETS) {
         try {
-          await cache.add(url);
+          await staticCache.add(asset);
         } catch (err) {
-          console.error("No se pudo cachear este archivo:", url);
+          console.warn("No se pudo cachear el asset:", asset, err);
         }
       }
-      
+
+      // 2. Pre-cachear boletos demo si existen en la red
       try {
-        // 1. Cache principal
-        const staticCache = await caches.open(STATIC_CACHE);
-        await staticCache.addAll(STATIC_ASSETS);
-
-        // 2. Cache de tickets
         const ticketsCache = await caches.open(TICKETS_CACHE);
-        const response = await fetch("data/tickets.json");
-        const data = await response.json();
-
-        // IMPORTANTE: Asegúrate de que esto sea un Array de URLs (strings)
-        // Si data.tickets es una lista de objetos, usa .map() para sacar solo la URL
-        // Extraemos solo la propiedad 'file' de cada objeto para el caché
-        const urlsToCache = data.map(ticket => ticket.file);
-        
-        await ticketsCache.addAll(urlsToCache);
-      } catch (error) {
-        console.error("Fallo en la instalación del SW:", error);
+        const res = await fetch("data/tickets.json");
+        if (res.ok) {
+          const data = await res.json();
+          const ticketsList = Array.isArray(data) ? data : (data.tickets || []);
+          for (const item of ticketsList) {
+            if (item.file && typeof item.file === "string") {
+              try {
+                await ticketsCache.add(item.file);
+              } catch (e) {
+                console.warn("Boleto demo no precacheado:", item.file);
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Fallo opcional al pre-cachear tickets demo:", err);
       }
     })()
   );
   self.skipWaiting();
 });
 
-// Mantén tu activate y fetch como estaban...
-self.addEventListener("activate", event => {
-  event.waitUntil(self.clients.claim());
-});
-
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+// Activación: Limpieza de cachés antiguas
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys.map((key) => {
+          if (key !== STATIC_CACHE && key !== TICKETS_CACHE) {
+            console.log("Limpiando caché antigua:", key);
+            return caches.delete(key);
+          }
+        })
+      );
+      await self.clients.claim();
+    })()
   );
 });
 
-// ELIMINÉ EL SEGUNDO BLOQUE "INSTALL" QUE CAUSABA EL ERROR
+// Interceptor de peticiones (Offline First con Network Fallback)
+self.addEventListener("fetch", (event) => {
+  // Ignorar peticiones no HTTP/HTTPS (como chrome-extension o blob:)
+  if (!event.request.url.startsWith("http")) return;
+
+  event.respondWith(
+    (async () => {
+      // 1. Intentar responder desde caché
+      const cachedResponse = await caches.match(event.request);
+      if (cachedResponse) {
+        // En segundo plano, si hay red, refrescar el caché para la próxima vez (Stale-While-Revalidate)
+        fetch(event.request)
+          .then(async (networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              const cacheToUse = event.request.url.includes("tickets/")
+                ? await caches.open(TICKETS_CACHE)
+                : await caches.open(STATIC_CACHE);
+              cacheToUse.put(event.request, networkResponse.clone());
+            }
+          })
+          .catch(() => {});
+
+        return cachedResponse;
+      }
+
+      // 2. Si no está en caché, intentar obtenerlo de la red
+      try {
+        const networkResponse = await fetch(event.request);
+        if (networkResponse && networkResponse.status === 200) {
+          const cacheToUse = event.request.url.includes("tickets/")
+            ? await caches.open(TICKETS_CACHE)
+            : await caches.open(STATIC_CACHE);
+          cacheToUse.put(event.request, networkResponse.clone());
+        }
+        return networkResponse;
+      } catch (error) {
+        // Fallback para navegación de página
+        if (event.request.mode === "navigate") {
+          const fallback = await caches.match("itinerario.html");
+          if (fallback) return fallback;
+        }
+        throw error;
+      }
+    })()
+  );
+});

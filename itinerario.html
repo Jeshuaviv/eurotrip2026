@@ -38,8 +38,8 @@
 
   <main class="home screen active" id="homeScreen">
     <img class="logo" src="img/icon-192.png" alt="eurotrip2026">
-    <h1>EuroTrip 2026 ✈️</h1>
-    <h2 class="subtitle">Mi itinerario</h2>
+    <h1 id="tripTitle">EuroTrip 2026 ✈️</h1>
+    <h2 class="subtitle" id="tripSubtitle">Mi itinerario</h2>
 
     <div class="inputSearch">
       <input type="text" id="searchInput" placeholder="Buscar actividad o lugar..." />
@@ -80,22 +80,186 @@
   <main id="hotelsScreen" class="screen">
   </main>
 
+  <!-- Pantalla CMS / Editor de Viaje -->
+  <main id="cmsScreen" class="screen">
+    <div class="cms-header">
+      <div class="cms-trip-info">
+        <h2 id="cmsTripTitle">Mi Viaje</h2>
+        <p id="cmsTripSubtitle" class="cms-subtitle">Itinerario de viaje</p>
+      </div>
+      <div class="cms-header-actions">
+        <button id="cmsTripSelectorBtn" class="cta secondary small">Viajes ▾</button>
+        <button id="cmsEditTripBtn" class="cta secondary small">✏️ Editar</button>
+      </div>
+    </div>
+
+    <!-- Modal / Selector de Viajes -->
+    <div id="cmsTripSelectorModal" class="cms-modal hidden">
+      <div class="cms-modal-content">
+        <div class="cms-modal-header">
+          <h3>Tus Viajes</h3>
+          <button id="cmsCloseSelectorBtn" class="close-modal-btn">✕</button>
+        </div>
+        <div id="cmsTripsList" class="cms-trips-list"></div>
+        <div style="margin-top: 14px; display: flex; gap: 8px;">
+          <button id="cmsNewTripBtn" class="cta primary full-width">+ Nuevo Viaje</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para editar nombre y subtítulo del viaje -->
+    <div id="cmsEditTripModal" class="cms-modal hidden">
+      <div class="cms-modal-content">
+        <div class="cms-modal-header">
+          <h3>Editar Viaje</h3>
+          <button id="cmsCloseEditTripBtn" class="close-modal-btn">✕</button>
+        </div>
+        <form id="cmsEditTripForm" class="cms-form">
+          <div class="form-group">
+            <label for="cmsEditTripName">Nombre del Viaje</label>
+            <input type="text" id="cmsEditTripName" required placeholder="Ej. EuroTrip 2026" />
+          </div>
+          <div class="form-group">
+            <label for="cmsEditTripSub">Subtítulo</label>
+            <input type="text" id="cmsEditTripSub" placeholder="Ej. Nuestro viaje soñado" />
+          </div>
+          <button type="submit" class="cta primary full-width">Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Pestañas internas del CMS -->
+    <div class="cms-tabs">
+      <button class="cms-tab-btn active" data-tab="actividad">➕ Actividad</button>
+      <button class="cms-tab-btn" data-tab="dias">📅 Días</button>
+      <button class="cms-tab-btn" data-tab="ajustes">📁 Respaldo</button>
+    </div>
+
+    <!-- Pestaña 1: Nueva Actividad -->
+    <section id="cmsTabActividad" class="cms-tab-pane active">
+      <h3>Nueva Actividad</h3>
+      <form id="cmsActivityForm" class="cms-form">
+        <div class="form-group">
+          <label for="cmsActDaySelect">Día / Ciudad *</label>
+          <div class="day-select-row">
+            <select id="cmsActDaySelect" required></select>
+            <button type="button" id="cmsQuickAddDayBtn" class="cta secondary small">+ Día</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="cmsActTime">Hora *</label>
+            <input type="time" id="cmsActTime" value="09:00" required />
+          </div>
+          <div class="form-group flex-2">
+            <label for="cmsActCategory">Categoría</label>
+            <select id="cmsActCategory">
+              <option value="activity">🎟 Actividad / Tour</option>
+              <option value="transport">✈️ Transporte / Vuelo / Tren</option>
+              <option value="hotel">🏨 Hotel / Alojamiento</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cmsActTitle">Título de la actividad *</label>
+          <input type="text" id="cmsActTitle" placeholder="Ej. Vuelo a Roma / Museo del Vaticano" required />
+        </div>
+
+        <div class="form-group">
+          <label for="cmsActDesc">Descripción o dirección</label>
+          <textarea id="cmsActDesc" rows="3" placeholder="Detalles, dirección o indicaciones..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="cmsActNotes">Tip o Nota importante</label>
+          <input type="text" id="cmsActNotes" placeholder="Ej. Llegar 30 min antes, llevar pasaporte..." />
+        </div>
+
+        <div class="form-group file-upload-box">
+          <label for="cmsActFile">Adjuntar Boleto (PDF o Foto)</label>
+          <input type="file" id="cmsActFile" accept="application/pdf,image/*" />
+          <div id="cmsFilePreview" class="file-preview hidden">
+            <span id="cmsFileName"></span>
+            <button type="button" id="cmsClearFileBtn">✕</button>
+          </div>
+          <small class="help-text">Guarda tus pases de abordar o vouchers directo en el móvil.</small>
+        </div>
+
+        <button type="submit" id="cmsSubmitActBtn" class="cta primary full-width">Guardar Actividad ✓</button>
+      </form>
+    </section>
+
+    <!-- Pestaña 2: Días & Ciudades -->
+    <section id="cmsTabDias" class="cms-tab-pane">
+      <h3>Días y Destinos</h3>
+      <form id="cmsDayForm" class="cms-form">
+        <div class="form-group">
+          <label for="cmsDayDate">Fecha *</label>
+          <input type="date" id="cmsDayDate" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="cmsDayCity">Ciudad *</label>
+            <input type="text" id="cmsDayCity" placeholder="Ej. París" required />
+          </div>
+          <div class="form-group flex-1">
+            <label for="cmsDayCountry">País / Bandera</label>
+            <input type="text" id="cmsDayCountry" placeholder="Ej. Francia 🇫🇷" />
+          </div>
+        </div>
+        <button type="submit" class="cta secondary full-width">+ Agregar este Día</button>
+      </form>
+
+      <h4 style="margin-top: 24px;">Días programados:</h4>
+      <div id="cmsDaysList" class="cms-days-list"></div>
+    </section>
+
+    <!-- Pestaña 3: Respaldo & Ajustes -->
+    <section id="cmsTabAjustes" class="cms-tab-pane">
+      <h3>Respaldo y Compartir</h3>
+      <p class="descripcion">Tus itinerarios se guardan en tu dispositivo para consultarlos sin internet. Puedes exportarlos o transferirlos.</p>
+
+      <div class="settings-actions">
+        <button id="cmsExportBtn" class="cta primary full-width">📥 Exportar Viaje (Descargar JSON)</button>
+        
+        <label class="cta secondary full-width file-button-label">
+          📤 Importar Viaje (Cargar JSON)
+          <input type="file" id="cmsImportFileInput" accept=".json" style="display:none;" />
+        </label>
+
+        <hr style="border: 0.5px solid #2c2c30; margin: 24px 0;" />
+
+        <h4 style="color: #aaa;">Opciones de Viaje</h4>
+        <button id="cmsResetDemoBtn" class="cta secondary full-width" style="margin-bottom: 12px;">🔄 Restaurar EuroTrip 2026 (Demo)</button>
+        <button id="cmsDeleteTripBtn" class="cta danger full-width">🗑 Eliminar Viaje Actual</button>
+      </div>
+    </section>
+  </main>
+
   <!-- Timeline -->
   <div class="timeline" id="timeline"></div>
 
   <!-- Visor ticket -->
-<div id="pdfOverlay">
+  <div id="pdfOverlay">
     <div class="pdf-controls" style="padding: 10px; text-align: right;">
         <button id="closeTicket" class="cta">Cerrar ✕</button>
     </div>
     <div id="pdfPagesContainer"></div>
-</div>
-<nav class="bottom-nav">
-  <button id="home" data-screen="home" class="nav-btn active">🏠<span class="bottom-item">inicio</span></button>
-  <button data-screen="tickets" class="nav-btn">🎟<span class="bottom-item">tickets</span></button>
-  <button class="nav-btn"><a href="index.html">📃<span class="bottom-item">Recuento</span></a></button>
-  <!-- <button data-screen="hotels" class="nav-btn">🏨</button> -->
-</nav>
+  </div>
+
+  <!-- Notificación Toast -->
+  <div id="toastNotification" class="toast hidden"></div>
+
+  <nav class="bottom-nav">
+    <button id="home" data-screen="home" class="nav-btn active">🏠<span class="bottom-item">inicio</span></button>
+    <button data-screen="tickets" class="nav-btn">🎟<span class="bottom-item">tickets</span></button>
+    <button data-screen="cms" class="nav-btn" id="navCms">⚙️<span class="bottom-item">Mi Viaje</span></button>
+    <button class="nav-btn"><a href="index.html">📃<span class="bottom-item">Recuento</span></a></button>
+  </nav>
+
   <script type="module" src="app.v2.js"></script>
+  <script type="module" src="cms.js"></script>
 </body>
 </html>

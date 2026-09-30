@@ -14,28 +14,49 @@ document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const target = btn.dataset.screen;
     switchScreen(target);
-    showHome();
   });
 });
 
 function switchScreen(screen) {
-
   currentScreen = screen;
 
   document.querySelectorAll(".screen").forEach(s => {
     s.classList.remove("active");
   });
 
-  document.getElementById(screen + "Screen").classList.add("active");
+  const targetScreen = document.getElementById(screen + "Screen");
+  if (targetScreen) {
+    targetScreen.classList.add("active");
+  }
 
   document.querySelectorAll(".nav-btn").forEach(b => {
     b.classList.remove("active");
   });
 
-  document.querySelector(`[data-screen="${screen}"]`).classList.add("active");
-   // 👇 AQUÍ es donde se muestran los tickets
+  const activeBtn = document.querySelector(`[data-screen="${screen}"]`);
+  if (activeBtn) activeBtn.classList.add("active");
+
+  // Esconder timeline y botón atrás cuando se cambia de pantalla
+  const timeline = document.getElementById("timeline");
+  const backHomeBtn = document.getElementById("backHome");
+  if (timeline) timeline.style.display = "none";
+  if (backHomeBtn) backHomeBtn.style.display = "none";
+
+  if (screen === "home") {
+    const homeScreen = document.getElementById("homeScreen");
+    if (homeScreen) homeScreen.style.display = "block";
+    resetView();
+  } else {
+    const homeScreen = document.getElementById("homeScreen");
+    if (homeScreen) homeScreen.style.display = "none";
+  }
+
   if (screen === "tickets") {
     renderTickets();
+  }
+
+  if (screen === "profile" && typeof window.renderProfileScreen === "function") {
+    window.renderProfileScreen();
   }
 }
 
@@ -70,13 +91,11 @@ function formatDate(dateStr) {
 
 // función crear Chips de actividades
 function buildActivityChips(days) {
-
   const container = document.getElementById("activityChips");
-
+  if (!container) return;
   container.innerHTML = "";
 
   const now = new Date();
-
   const activities = [];
 
   // Obtener las actividades marcadas manualmente desde localStorage
@@ -86,42 +105,48 @@ function buildActivityChips(days) {
     const dayDate = new Date(day.date);
 
     (day.activities || []).forEach(act => {
-
-      const uniqueId = day.date + "_" + act.title;
+      const uniqueId = act.id || `${day.date}_${act.title}`.trim();
 
       activities.push({
         id: uniqueId,
+        actId: act.id || uniqueId,
         title: act.title,
-        date: dayDate
+        date: dayDate,
+        photos: act.photos || []
       });
-
     });
-
   });
 
   // ordenar cronológicamente
   activities.sort((a, b) => a.date - b.date);
 
   activities.forEach(act => {
-  const chip = document.createElement("div");
-  chip.className = "activity-chip";
-  chip.textContent = act.title;
-  chip.dataset.id = act.id;
+    const chip = document.createElement("div");
+    chip.className = "activity-chip";
+    const hasPhotos = act.photos && act.photos.length > 0;
+    chip.innerHTML = `${hasPhotos ? '<span class="chip-photo-icon">📸</span> ' : ''}${act.title}`;
+    chip.dataset.id = act.id;
 
-  // AQUÍ es donde debes usar la constante para que VS Code la detecte:
-  const isManualDone = doneActivities[act.id] === true;
-  const isAutoDone = act.date < now;
+    const isManualDone = doneActivities[act.id] === true;
+    const isAutoDone = act.date < now;
 
-  if (isManualDone || isAutoDone) {
-    chip.classList.add("done");
-  }
+    if (isManualDone || isAutoDone) {
+      chip.classList.add("done");
+    }
 
-  container.appendChild(chip);
-});
+    // Al hacer clic, abrir modal de fotos / recap
+    chip.addEventListener("click", () => {
+      if (typeof window.openActivityPhotoModal === "function") {
+        window.openActivityPhotoModal(act.actId);
+      }
+    });
+
+    container.appendChild(chip);
+  });
 
   if (typeof refreshActivityChips === "function") {
     refreshActivityChips();
-  } // 👈 importante llamarlo aquí
+  }
 }
 
 //carga de tickets
@@ -229,7 +254,7 @@ async function loadTrip() {
           <h2>${day.city} – ${day.country}</h2>
           <p>${formatDate(day.date)}</p>
         </div>
-        <button class="add-act-quick-btn" onclick="openCmsAddActivity('${day.id}')" title="Agregar actividad a este día">+ Actividad</button>
+        <button class="add-act-quick-btn" onclick="openActivityModal({ dayId: '${day.id}', defaultDate: '${day.date}', defaultCity: '${day.city}', defaultCountry: '${day.country}' })" title="Agregar actividad a este día">+ Actividad</button>
       </div>
       <div class="activities"></div>
     `;
@@ -241,13 +266,16 @@ async function loadTrip() {
       card.className = "card";
 
       // --- PASO CLAVE: Generar y asignar el ID ---
-      const uniqueId = `${day.date}_${act.title}`.trim();
+      const uniqueId = act.id || `${day.date}_${act.title}`.trim();
       card.dataset.id = uniqueId; 
       
       const hasTicket = (act.file || act.fileBlob) ? true : false;
 
       card.innerHTML = `
-        <div class="time">${act.time}</div>
+        <div class="card-top-bar">
+          <div class="time">${act.time}</div>
+          <button class="card-menu-btn" data-act-id="${uniqueId}" onclick="openCardContextMenu(event, '${uniqueId}')" title="Opciones">⋮</button>
+        </div>
         <h3>${act.title}</h3>
         <p>${act.description || ""}</p>
         

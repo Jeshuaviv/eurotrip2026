@@ -264,10 +264,15 @@ class TripDatabase {
    * Obtiene la estructura completa del viaje activo
    */
   async getActiveTrip() {
-    await this.seedIfEmpty();
-    const activeTripId = await this.getActiveTripId();
+    let activeTripId = await this.getActiveTripId();
     if (!activeTripId) {
-      return { trip: null, days: [], tickets: [] };
+      const trips = await this.getAll("trips");
+      if (trips.length > 0) {
+        activeTripId = trips[0].id;
+        await this.setActiveTripId(activeTripId);
+      } else {
+        return { trip: null, days: [], tickets: [] };
+      }
     }
 
     const trip = await this.get("trips", activeTripId);
@@ -481,11 +486,134 @@ class TripDatabase {
   }
 
   /**
+   * Obtiene una actividad específica por su ID
+   */
+  async getActivity(activityId) {
+    return await this.get("activities", activityId);
+  }
+
+  /**
+   * Actualiza una actividad existente
+   */
+  async updateActivity(activityId, updates) {
+    const act = await this.get("activities", activityId);
+    if (!act) throw new Error("Actividad no encontrada");
+
+    // Si viene un archivo nuevo (fileBlob)
+    if (updates.fileBlob) {
+      const ticketId = updates.file || `ticket_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+      await this.saveTicket({
+        id: ticketId,
+        tripId: act.tripId,
+        title: updates.title || updates.fileName || "Boleto",
+        category: updates.category || "activity",
+        fileBlob: updates.fileBlob,
+        fileName: updates.fileName || "documento",
+        fileType: updates.fileType || updates.fileBlob.type,
+        date: new Date().toISOString()
+      });
+      updates.file = ticketId;
+    }
+
+    const updated = {
+      ...act,
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+
+    await this.put("activities", updated);
+    return updated;
+  }
+
+  /**
    * Elimina una actividad
    */
   async deleteActivity(activityId) {
     await this.delete("activities", activityId);
     return true;
+  }
+
+  /**
+   * Busca un día existente por fecha en un viaje o crea uno nuevo de forma transparente
+   */
+  async findOrCreateDay(tripId, { date, city, country }) {
+    const days = await this.getAll("days", "tripId", tripId);
+    const targetDateStr = date ? date.split("T")[0] : new Date().toISOString().split("T")[0];
+
+    // Buscar día existente con la misma fecha
+    let day = days.find(d => {
+      const dStr = d.date ? d.date.split("T")[0] : "";
+      return dStr === targetDateStr;
+    });
+
+    if (day) {
+      // Si el día existe y se especificó ciudad nueva
+      if (city && city !== day.city) {
+        day.city = city;
+        if (country) day.country = country;
+        await this.put("days", day);
+      }
+      return day;
+    }
+
+    // Crear nuevo día
+    const dayId = `${tripId}_day_${Date.now()}`;
+    const newDay = {
+      id: dayId,
+      tripId,
+      date: date ? new Date(date).toISOString() : new Date().toISOString(),
+      city: city || "Destino",
+      country: country || "",
+      order: days.length
+    };
+    await this.put("days", newDay);
+    return newDay;
+  }
+
+  /**
+   * Agrega una foto optimizada (Blob) a una actividad para el Recap
+   */
+  async addActivityPhoto(activityId, photoBlob) {
+    const act = await this.get("activities", activityId);
+    if (!act) throw new Error("Actividad no encontrada");
+
+    act.photos = act.photos || [];
+    act.photos.push({
+      id: `photo_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+      blob: photoBlob,
+      createdAt: new Date().toISOString()
+    });
+
+    await this.put("activities", act);
+    return act.photos;
+  }
+
+  /**
+   * Elimina una foto de una actividad
+   */
+  async removeActivityPhoto(activityId, photoId) {
+    const act = await this.get("activities", activityId);
+    if (!act || !act.photos) return false;
+
+    act.photos = act.photos.filter(p => p.id !== photoId);
+    await this.put("activities", act);
+    return act.photos;
+  }
+
+  /**
+   * Obtiene las fotos de una actividad
+   */
+  async getActivityPhotos(activityId) {
+    const act = await this.get("activities", activityId);
+    return act && act.photos ? act.photos : [];
+  }
+
+  /**
+   * Verifica si existen viajes registrados
+   */
+  async hasAnyTrips() {
+    const trips = await this.getAll("trips");
+    return trips.length > 0;
   }
 
   /**

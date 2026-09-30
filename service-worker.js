@@ -1,4 +1,4 @@
-const CACHE_VERSION = "trip-app-v23";
+const CACHE_VERSION = "trip-app-v24";
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const TICKETS_CACHE = `tickets-${CACHE_VERSION}`;
 

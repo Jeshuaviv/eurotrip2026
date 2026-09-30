@@ -80,163 +80,227 @@
   <main id="hotelsScreen" class="screen">
   </main>
 
-  <!-- Pantalla CMS / Editor de Viaje -->
-  <main id="cmsScreen" class="screen">
-    <div class="cms-header">
-      <div class="cms-trip-info">
-        <h2 id="cmsTripTitle">Mi Viaje</h2>
-        <p id="cmsTripSubtitle" class="cms-subtitle">Itinerario de viaje</p>
+  <!-- Pantalla Mi Perfil (Acciones secundarias, Mis Viajes, Respaldo, Recuento) -->
+  <main id="profileScreen" class="screen">
+    <div class="profile-header">
+      <h2>👤 Mi Perfil</h2>
+      <p class="profile-subtitle">Gestiona tus viajes, respaldos y recuerdos</p>
+    </div>
+
+    <!-- Tarjeta Viaje Activo -->
+    <div class="profile-card active-trip-banner">
+      <div class="active-trip-meta">
+        <span class="badge-status">Viaje Activo</span>
+        <h3 id="profileActiveTripName">EuroTrip 2026</h3>
+        <p id="profileActiveTripSub" class="sub-text">Mi itinerario</p>
       </div>
-      <div class="cms-header-actions">
-        <button id="cmsTripSelectorBtn" class="cta secondary small">Viajes ▾</button>
-        <button id="cmsEditTripBtn" class="cta secondary small">✏️ Editar</button>
+      <button id="profileEditTripBtn" class="cta secondary small">✏️ Renombrar</button>
+    </div>
+
+    <!-- Sección 1: Mis Viajes -->
+    <div class="profile-card">
+      <div class="card-title-row">
+        <h3>🧳 Mis Viajes</h3>
+        <button id="profileNewTripBtn" class="cta primary small">+ Nuevo Viaje</button>
+      </div>
+      <p class="section-desc">Selecciona el viaje que estás viviendo o crea uno nuevo.</p>
+      <div id="profileTripsList" class="profile-trips-list"></div>
+    </div>
+
+    <!-- Sección 2: Inventario de Días -->
+    <div class="profile-card">
+      <div class="card-title-row">
+        <h3>📅 Días y Destinos</h3>
+      </div>
+      <p class="section-desc">Inventario de fechas y ciudades del viaje activo.</p>
+      <div id="profileDaysList" class="profile-days-list"></div>
+    </div>
+
+    <!-- Sección 3: Respaldo y Datos -->
+    <div class="profile-card">
+      <h3>📁 Respaldo & Sincronización</h3>
+      <p class="section-desc">Tus datos están guardados en este dispositivo. Descárgalos para respaldar o compartir.</p>
+      <div class="profile-actions-stack">
+        <button id="profileExportBtn" class="cta full-width">📥 Exportar Viaje (Descargar JSON)</button>
+        <label class="cta secondary full-width file-button-label">
+          📤 Importar Viaje (Cargar JSON)
+          <input type="file" id="profileImportFileInput" accept=".json" style="display:none;" />
+        </label>
+        <hr class="card-divider" />
+        <button id="profileResetDemoBtn" class="cta secondary full-width">🔄 Cargar / Restaurar EuroTrip 2026 (Demo)</button>
+        <button id="profileDeleteTripBtn" class="cta danger full-width">🗑 Eliminar Viaje Activo</button>
       </div>
     </div>
 
-    <!-- Modal / Selector de Viajes -->
-    <div id="cmsTripSelectorModal" class="cms-modal hidden">
-      <div class="cms-modal-content">
-        <div class="cms-modal-header">
-          <h3>Tus Viajes</h3>
-          <button id="cmsCloseSelectorBtn" class="close-modal-btn">✕</button>
-        </div>
-        <div id="cmsTripsList" class="cms-trips-list"></div>
-        <div style="margin-top: 14px; display: flex; gap: 8px;">
-          <button id="cmsNewTripBtn" class="cta primary full-width">+ Nuevo Viaje</button>
-        </div>
-      </div>
+    <!-- Sección 4: Recuento del Viaje -->
+    <div class="profile-card recap-card">
+      <h3>🎉 Recuento del Viaje</h3>
+      <p class="section-desc">Revive la historia de tu viaje slide por slide al concluirlo.</p>
+      <a href="index.html" class="cta primary full-width recap-link-btn">Ver Historia del Viaje ➜</a>
+    </div>
+  </main>
+
+  <!-- Modal Independiente de Actividades (Crear / Editar) -->
+  <div id="activityModal" class="standalone-modal hidden">
+    <div class="standalone-modal-header">
+      <button id="closeActivityModalBtn" class="modal-back-btn">➜</button>
+      <h2 id="activityModalTitle">Nueva Actividad</h2>
+      <div style="width: 32px;"></div>
     </div>
 
-    <!-- Modal para editar nombre y subtítulo del viaje -->
-    <div id="cmsEditTripModal" class="cms-modal hidden">
-      <div class="cms-modal-content">
-        <div class="cms-modal-header">
-          <h3>Editar Viaje</h3>
-          <button id="cmsCloseEditTripBtn" class="close-modal-btn">✕</button>
-        </div>
-        <form id="cmsEditTripForm" class="cms-form">
-          <div class="form-group">
-            <label for="cmsEditTripName">Nombre del Viaje</label>
-            <input type="text" id="cmsEditTripName" required placeholder="Ej. EuroTrip 2026" />
+    <div class="standalone-modal-body">
+      <form id="standaloneActivityForm" class="cms-form">
+        <input type="hidden" id="actEditId" value="" />
+        <input type="hidden" id="actDayId" value="" />
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="actModalDate">Fecha *</label>
+            <input type="date" id="actModalDate" required />
           </div>
-          <div class="form-group">
-            <label for="cmsEditTripSub">Subtítulo</label>
-            <input type="text" id="cmsEditTripSub" placeholder="Ej. Nuestro viaje soñado" />
-          </div>
-          <button type="submit" class="cta primary full-width">Guardar Cambios</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Pestañas internas del CMS -->
-    <div class="cms-tabs">
-      <button class="cms-tab-btn active" data-tab="actividad">➕ Actividad</button>
-      <button class="cms-tab-btn" data-tab="dias">📅 Días</button>
-      <button class="cms-tab-btn" data-tab="ajustes">📁 Respaldo</button>
-    </div>
-
-    <!-- Pestaña 1: Nueva Actividad -->
-    <section id="cmsTabActividad" class="cms-tab-pane active">
-      <h3>Nueva Actividad</h3>
-      <form id="cmsActivityForm" class="cms-form">
-        <div class="form-group">
-          <label for="cmsActDaySelect">Día / Ciudad *</label>
-          <div class="day-select-row">
-            <select id="cmsActDaySelect" required></select>
-            <button type="button" id="cmsQuickAddDayBtn" class="cta secondary small">+ Día</button>
+          <div class="form-group flex-1">
+            <label for="actModalTime">Hora *</label>
+            <input type="time" id="actModalTime" value="09:00" required />
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group flex-1">
-            <label for="cmsActTime">Hora *</label>
-            <input type="time" id="cmsActTime" value="09:00" required />
-          </div>
           <div class="form-group flex-2">
-            <label for="cmsActCategory">Categoría</label>
-            <select id="cmsActCategory">
-              <option value="activity">🎟 Actividad / Tour</option>
-              <option value="transport">✈️ Transporte / Vuelo / Tren</option>
-              <option value="hotel">🏨 Hotel / Alojamiento</option>
-            </select>
+            <label for="actModalCity">Ciudad *</label>
+            <input type="text" id="actModalCity" placeholder="Ej. Roma, París, Tokio" required />
+          </div>
+          <div class="form-group flex-1">
+            <label for="actModalCountry">País / Bandera</label>
+            <input type="text" id="actModalCountry" placeholder="Ej. Italia 🇮🇹" />
           </div>
         </div>
 
         <div class="form-group">
-          <label for="cmsActTitle">Título de la actividad *</label>
-          <input type="text" id="cmsActTitle" placeholder="Ej. Vuelo a Roma / Museo del Vaticano" required />
+          <label for="actModalCategory">Categoría</label>
+          <select id="actModalCategory">
+            <option value="activity">🎟 Actividad / Museo / Tour</option>
+            <option value="transport">✈️ Transporte / Vuelo / Tren</option>
+            <option value="hotel">🏨 Hotel / Alojamiento</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="cmsActDesc">Descripción o dirección</label>
-          <textarea id="cmsActDesc" rows="3" placeholder="Detalles, dirección o indicaciones..."></textarea>
+          <label for="actModalTitle">Título de la actividad *</label>
+          <input type="text" id="actModalTitle" placeholder="Ej. Visita al Coliseo y Arena" required />
         </div>
 
         <div class="form-group">
-          <label for="cmsActNotes">Tip o Nota importante</label>
-          <input type="text" id="cmsActNotes" placeholder="Ej. Llegar 30 min antes, llevar pasaporte..." />
+          <label for="actModalDesc">Descripción / Dirección</label>
+          <textarea id="actModalDesc" rows="3" placeholder="Detalles, dirección o indicaciones..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="actModalNotes">Tip o Nota importante</label>
+          <input type="text" id="actModalNotes" placeholder="Ej. Llegar 20 min antes, llevar pasaporte..." />
         </div>
 
         <div class="form-group file-upload-box">
-          <label for="cmsActFile">Adjuntar Boleto (PDF o Foto)</label>
-          <input type="file" id="cmsActFile" accept="application/pdf,image/*" />
-          <div id="cmsFilePreview" class="file-preview hidden">
-            <span id="cmsFileName"></span>
-            <button type="button" id="cmsClearFileBtn">✕</button>
+          <label for="actModalFile">Adjuntar Boleto (PDF o Foto)</label>
+          <input type="file" id="actModalFile" accept="application/pdf,image/*" />
+          <div id="actModalFilePreview" class="file-preview hidden">
+            <span id="actModalFileName"></span>
+            <button type="button" id="actModalClearFileBtn">✕</button>
           </div>
-          <small class="help-text">Guarda tus pases de abordar o vouchers directo en el móvil.</small>
+          <small class="help-text">Guarda pases de abordar, reservas o fotos QR.</small>
         </div>
 
-        <button type="submit" id="cmsSubmitActBtn" class="cta primary full-width">Guardar Actividad ✓</button>
+        <div class="form-actions-sticky">
+          <button type="submit" id="saveActivityBtn" class="cta primary full-width">Guardar Actividad ✓</button>
+        </div>
       </form>
-    </section>
+    </div>
+  </div>
 
-    <!-- Pestaña 2: Días & Ciudades -->
-    <section id="cmsTabDias" class="cms-tab-pane">
-      <h3>Días y Destinos</h3>
-      <form id="cmsDayForm" class="cms-form">
-        <div class="form-group">
-          <label for="cmsDayDate">Fecha *</label>
-          <input type="date" id="cmsDayDate" required />
-        </div>
-        <div class="form-row">
-          <div class="form-group flex-1">
-            <label for="cmsDayCity">Ciudad *</label>
-            <input type="text" id="cmsDayCity" placeholder="Ej. París" required />
-          </div>
-          <div class="form-group flex-1">
-            <label for="cmsDayCountry">País / Bandera</label>
-            <input type="text" id="cmsDayCountry" placeholder="Ej. Francia 🇫🇷" />
-          </div>
-        </div>
-        <button type="submit" class="cta secondary full-width">+ Agregar este Día</button>
-      </form>
-
-      <h4 style="margin-top: 24px;">Días programados:</h4>
-      <div id="cmsDaysList" class="cms-days-list"></div>
-    </section>
-
-    <!-- Pestaña 3: Respaldo & Ajustes -->
-    <section id="cmsTabAjustes" class="cms-tab-pane">
-      <h3>Respaldo y Compartir</h3>
-      <p class="descripcion">Tus itinerarios se guardan en tu dispositivo para consultarlos sin internet. Puedes exportarlos o transferirlos.</p>
-
-      <div class="settings-actions">
-        <button id="cmsExportBtn" class="cta primary full-width">📥 Exportar Viaje (Descargar JSON)</button>
-        
-        <label class="cta secondary full-width file-button-label">
-          📤 Importar Viaje (Cargar JSON)
-          <input type="file" id="cmsImportFileInput" accept=".json" style="display:none;" />
-        </label>
-
-        <hr style="border: 0.5px solid #2c2c30; margin: 24px 0;" />
-
-        <h4 style="color: #aaa;">Opciones de Viaje</h4>
-        <button id="cmsResetDemoBtn" class="cta secondary full-width" style="margin-bottom: 12px;">🔄 Restaurar EuroTrip 2026 (Demo)</button>
-        <button id="cmsDeleteTripBtn" class="cta danger full-width">🗑 Eliminar Viaje Actual</button>
+  <!-- Diálogo Confirmación de Descarte -->
+  <div id="confirmDiscardModal" class="confirm-dialog-overlay hidden">
+    <div class="confirm-dialog-box">
+      <h3>¿Descartar cambios?</h3>
+      <p>Perderás la información que hayas capturado si no guardas.</p>
+      <div class="confirm-dialog-actions">
+        <button id="cancelDiscardBtn" class="cta secondary">Continuar editando</button>
+        <button id="confirmDiscardBtn" class="cta danger">Aceptar (Descartar)</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+
+  <!-- Modal Onboarding (Inicio de Primera Vez) -->
+  <div id="onboardingModal" class="standalone-modal hidden">
+    <div class="onboarding-content">
+      <img class="logo" src="img/icon-192.png" alt="Itinerario" style="margin-bottom: 16px;">
+      <h1>¡Bienvenido a tu Itinerario! ✈️</h1>
+      <p class="onboarding-sub">Ten todos tus vuelos, reservas, hoteles y boletos a la mano sin necesidad de internet.</p>
+      
+      <form id="onboardingTripForm" class="onboarding-form">
+        <div class="form-group">
+          <label for="onboardingTripName">Nombre de tu viaje</label>
+          <input type="text" id="onboardingTripName" placeholder="Ej. EuroTrip 2026, Japón, Vacaciones Cancún" required />
+        </div>
+        <div class="form-group">
+          <label for="onboardingTripSub">Subtítulo (opcional)</label>
+          <input type="text" id="onboardingTripSub" placeholder="Ej. Nuestro viaje soñado" />
+        </div>
+        <button type="submit" class="cta primary full-width">Comenzar y agregar actividad ➜</button>
+      </form>
+
+      <div class="onboarding-divider"><span>o</span></div>
+
+      <button id="onboardingDemoBtn" class="cta secondary full-width">Explorar con viaje demo (EuroTrip 2026)</button>
+    </div>
+  </div>
+
+  <!-- Modal de Fotos para Recap de Actividad (desde Píldoras) -->
+  <div id="activityPhotoModal" class="standalone-modal hidden">
+    <div class="standalone-modal-header">
+      <button id="closePhotoModalBtn" class="modal-back-btn">➜</button>
+      <h2 id="photoModalTitle">Fotos de la Actividad</h2>
+      <div style="width: 32px;"></div>
+    </div>
+    <div class="standalone-modal-body">
+      <div class="photo-modal-activity-info">
+        <h3 id="photoModalActTitle">Título Actividad</h3>
+        <p id="photoModalActMeta" class="sub-text">Fecha y Ciudad</p>
+      </div>
+
+      <div class="photo-upload-section">
+        <label class="cta primary full-width photo-upload-btn">
+          📸 Tomar o Subir Foto
+          <input type="file" id="activityPhotoInput" accept="image/*" style="display:none;" />
+        </label>
+        <small class="help-text" style="text-align:center;">Se optimizará automáticamente para tu Recap sin perder calidad.</small>
+      </div>
+
+      <h4 style="margin-top: 18px;">Fotos guardadas:</h4>
+      <div id="activityPhotosGrid" class="photos-grid">
+        <p class="empty-state-text">Aún no has agregado fotos a esta actividad.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menú Contextual (3 puntos) en Cards -->
+  <div id="cardContextMenu" class="context-dropdown hidden">
+    <button class="context-item" id="contextEditBtn">✏️ Editar actividad</button>
+    <button class="context-item danger" id="contextDeleteBtn">🗑 Eliminar actividad</button>
+  </div>
+
+  <!-- Modal para Renombrar Viaje -->
+  <div id="editTripNameModal" class="confirm-dialog-overlay hidden">
+    <div class="confirm-dialog-box">
+      <h3>Editar Viaje</h3>
+      <form id="editTripNameForm" style="display:flex; flex-direction:column; gap:10px; margin: 12px 0;">
+        <input type="text" id="editTripNameInput" required placeholder="Nombre del viaje" />
+        <input type="text" id="editTripSubInput" placeholder="Subtítulo" />
+        <div class="confirm-dialog-actions" style="margin-top: 10px;">
+          <button type="button" id="cancelEditTripNameBtn" class="cta secondary">Cancelar</button>
+          <button type="submit" class="cta primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Timeline -->
   <div class="timeline" id="timeline"></div>
@@ -255,8 +319,7 @@
   <nav class="bottom-nav">
     <button id="home" data-screen="home" class="nav-btn active">🏠<span class="bottom-item">inicio</span></button>
     <button data-screen="tickets" class="nav-btn">🎟<span class="bottom-item">tickets</span></button>
-    <button data-screen="cms" class="nav-btn" id="navCms">⚙️<span class="bottom-item">Mi Viaje</span></button>
-    <button class="nav-btn"><a href="index.html">📃<span class="bottom-item">Recuento</span></a></button>
+    <button data-screen="profile" class="nav-btn" id="navProfile">👤<span class="bottom-item">perfil</span></button>
   </nav>
 
   <script type="module" src="app.v2.js"></script>
